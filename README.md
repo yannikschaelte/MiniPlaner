@@ -1,6 +1,6 @@
 # MiniPlaner
 
-Software zum effizienten Erstellen hochwertiger Messdienerplänen
+Software zum effizienten Erstellen hochwertiger Messdienerpläne.
 
 <img src="minis64.png"/>
 
