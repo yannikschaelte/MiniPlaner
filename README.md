@@ -55,7 +55,7 @@ Wenn Sie eine ältere Version (&le; 2.0.2) des Programms bereits installiert hab
 
 ## Hilfe und Kontakt
 
-* [Benutzerhandbuch](Handbuch.pdf)
+* [Handbuch](Handbuch.pdf)
 * E-Mail: ``yannik.schaelte <at> gmail.com``
 
 
