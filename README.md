@@ -1,5 +1,6 @@
 # MiniPlaner
-Software zum automatischen Erstellen von Messdienerplänen.
+
+Software zum effizienten Erstellen hochwertiger Messdienerplänen
 
 <img src="minis64.png"/>
 
@@ -9,7 +10,7 @@ Das Programm **MiniPlaner** ist ein Werkzeug zur Erstellung von Messdienerpläne
 
 <img src="hauptfenster_minis.PNG" width="360"/> <img src="planer.PNG" width="360"/>
 
-Nach der Eingabe aller benötigten Daten können schnell Pläne für vorzugebende Zeiträume erstellt werden, interaktiv oder automatisch mittels eines Algorithmus, welcher verschiedene einen gelungenen Plan ausmachenden Faktoren gleichzeitig zu berücksichtigen versucht. Das Programm bietet hierbei verschiedene Kontrollmöglichkeiten und Eingabehilfen an. Der Export der graphisch aufbereiteten fertigen Pläne ist in verschiedenen Formaten möglich - als [Webseite](Ministrantenplan_bsp.html) oder im [Tabellenformat](Ministrantenplan_bsp.pdf) zum Ausdrucken.
+Nach der Eingabe aller benötigten Daten können schnell Pläne für vorzugebende Zeiträume erstellt werden, interaktiv oder automatisch mittels eines Algorithmus, welcher verschiedene einen gelungenen Plan ausmachenden Faktoren gleichzeitig zu berücksichtigen versucht. Das Programm bietet hierbei verschiedene Kontrollmöglichkeiten und Eingabehilfen an. Der Export der graphisch aufbereiteten fertigen Pläne ist in verschiedenen Formaten möglich - als [Webseite](Ministrantenplan_bsp.html) oder als [PDF-Datei](Ministrantenplan_bsp.pdf) zum Ausdrucken.
 
 Ist bereits eine Liste aller Messdiener in einem Tabellenformat vorhanden, so kann der Import dieser als CSV-Datei die Dateneingabe enorm beschleunigen, ebenso das Verwenden von Serienterminen für periodische Termine.
 
@@ -55,7 +56,7 @@ Wenn Sie eine ältere Version (&le; 2.0.2) des Programms bereits installiert hab
 ## Hilfe und Kontakt
 
 * [Benutzerhandbuch](Handbuch.pdf)
-* E-Mail: [yannik.schaelte@gmail.com](yannik.schaelte@gmail.com)
+* E-Mail: ``yannik.schaelte <at> gmail.com``
 
 
 &copy; 2018 Yannik Schälte. Alle Rechte vorbehalten.
