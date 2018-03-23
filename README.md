@@ -35,7 +35,7 @@ Im entpackten Verzeichnis ``MiniPlaner/`` befindet sich die ausführbare Datei `
 
 ## Beispiel
 
-Folgende Varianten sind bereits mit Beispieldaten gefüllt und können temporär neben der eigentlichen Installation verwendet werden (eine Installation verwaltet stets nur einen Datensatz):
+Folgende Downloads sind bereits mit Beispieldaten gefüllt und können temporär neben der eigentlichen Installation verwendet werden (eine Installation verwaltet stets nur einen Datensatz):
 
 * [MiniPlaner_Beispiel.zip](MiniPlaner_Beispiel.zip)
 * [MiniPlaner_Beispiel.7z](MiniPlaner_Beispiel.7z)
@@ -46,7 +46,7 @@ Folgende Varianten sind bereits mit Beispieldaten gefüllt und können temporär
 
 ## Updates
 
-Wenn Sie eine ältere Version (&le; 2.0.2) des Programms bereits installiert haben, ersetzen Sie im Verzeichnis ``MiniPlaner/`` die Datei ``MiniPlaner.exe`` einfach durch [diese](MiniPlaner.exe) neue Version.
+Wenn Sie eine ältere Version (&le; 2.0.2) des Programms bereits installiert haben, ersetzen Sie im Verzeichnis ``MiniPlaner/`` die Datei ``MiniPlaner.exe`` einfach durch [diese](MiniPlaner.exe) aktuelle Version.
 
 * 12.10.2016 (2.0.3): several minor error fixes, added "Termin::extras" button and "Mini::bem" attribute, added fill-in-help
 * 30.04.2016 (2.0.2): integrated MiniInterface, certain changes of mass data in plan window possible
