@@ -18,7 +18,7 @@ Ausführliche Informationen zu Bedienung und Funktionsweise finden sich im [Hand
 
 ## Daten
 
-* Version: 2.0.3
+* Version: 2.0.4
 * Größe: 7.2 MB
 * System-Voraussetzungen: Windows ab XP (32/64 bit), Linux und Mac auf Nachfrage
 * Autor: Yannik Schälte
@@ -46,8 +46,9 @@ Folgende Downloads sind bereits mit Beispieldaten gefüllt und können temporär
 
 ## Updates
 
-Wenn Sie eine ältere Version (&le; 2.0.2) des Programms bereits installiert haben, ersetzen Sie im Verzeichnis ``MiniPlaner/`` die Datei ``MiniPlaner.exe`` einfach durch [diese](MiniPlaner.exe) aktuelle Version.
+Wenn Sie eine ältere Version (&le; 2.0.3) des Programms bereits installiert haben, ersetzen Sie im Verzeichnis ``MiniPlaner/`` die Datei ``MiniPlaner.exe`` einfach durch [diese](MiniPlaner.exe) aktuelle Version.
 
+* 01.03.2019 (2.0.4): move project to github.com
 * 12.10.2016 (2.0.3): several minor error fixes, added "Termin::extras" button and "Mini::bem" attribute, added fill-in-help
 * 30.04.2016 (2.0.2): integrated MiniInterface, certain changes of mass data in plan window possible
 * 18.02.2016 (2.001): 2 minor error fixes, added "Mini::extras" button
