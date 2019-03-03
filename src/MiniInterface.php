@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<meta name="description" content="MiniPlaner MiniInterface (siehe www.sthedwig-heepen.de/MiniPlaner/index.html)"/>
+		<meta name="description" content="MiniPlaner MiniInterface (siehe https://yannikschaelte.github.io/MiniPlaner)"/>
 		<meta name="keywords" content="MiniPlaner"/>
 		<meta name="author" content="Yannik Schälte"/>
 		<title>MiniInterface</title>
