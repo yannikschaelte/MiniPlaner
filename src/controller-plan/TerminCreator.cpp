@@ -261,7 +261,6 @@ void TerminCreator::addTGruppen(std::vector<TGruppe*>* tglist, std::vector<PTerm
 	for (std::vector<TGruppe*>::iterator tgiter = tglist->begin(); tgiter != tglist->end(); tgiter++) {
 		if ((**tgiter).list_serie.empty()) {
 			//alle Termine der TGruppe bilden eine PTGruppe
-			std::vector<PTerminHolder>::iterator pthiter = pthlist->begin();
 			std::vector<PTermin*> current_list;
 			for (std::vector<PTerminHolder>::iterator pthiter = pthlist->begin(); pthiter != pthlist->end(); pthiter++) {
 				if (std::find((**tgiter).list_einzel.begin(), (**tgiter).list_einzel.end(), pthiter->e) != (**tgiter).list_einzel.end()) {
