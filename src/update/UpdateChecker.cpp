@@ -34,7 +34,7 @@ UpdateChecker::UpdateDialog::UpdateDialog(wxWindow* parent)
 	sizer->Add(st_msg, 1, wxEXPAND | wxALL, 10);
 
 	wxBoxSizer* btsizer = new wxBoxSizer(wxHORIZONTAL);
-	wxPanel* pl_nn = new wxPanel();
+	wxPanel* pl_nn = new wxPanel(this);
 	pl_nn->SetSize(30, -1);
 	btsizer->Add(pl_nn, 1, wxEXPAND);
 	bt_download = new wxButton(this, R::ID_BT_COMPUTE, wxT("Zum Download"));
