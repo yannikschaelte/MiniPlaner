@@ -110,7 +110,7 @@ void PlanerMiniInterfaceDialog::initComponents() {
 
 	//Navigation
 	wxBoxSizer* btsizer = new wxBoxSizer(wxHORIZONTAL);
-	wxPanel* pl_nn = new wxPanel();
+	wxPanel* pl_nn = new wxPanel(this);
 	pl_nn->SetSize(30, -1);
 	btsizer->Add(pl_nn, 1, wxEXPAND);
 	bt_back = new wxButton(pl_1, R::ID_BT_BACK, R::ZURUECK);
@@ -130,10 +130,10 @@ void PlanerMiniInterfaceDialog::initComponents() {
 	sizer_2->Add(cb_imp_anw, 0, wxEXPAND | wxALL, 5);
 	bt_imp_pull = new wxButton(pl_2, R::ID_BT_ADD2, wxT("Lade Daten aus Zwischenablage"));
 	sizer_2->Add(bt_imp_pull, 0, wxALL, 5);
-	sizer_2->Add(new wxPanel(), 1, wxEXPAND, 0);
+	sizer_2->Add(new wxPanel(this), 1, wxEXPAND, 0);
 	//Navigation
 	wxBoxSizer* btsizer_2 = new wxBoxSizer(wxHORIZONTAL);
-	wxPanel* pl_nn_2 = new wxPanel();
+	wxPanel* pl_nn_2 = new wxPanel(this);
 	pl_nn_2->SetSize(30, -1);
 	btsizer_2->Add(pl_nn_2, 1, wxEXPAND);
 	bt_imp_cancel = new wxButton(pl_2, R::ID_BT_CANCEL, R::CANCEL);

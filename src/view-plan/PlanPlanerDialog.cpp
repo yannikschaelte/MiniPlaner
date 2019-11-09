@@ -91,7 +91,7 @@ void PlanPlanerDialog::initComponents() {
 	}
 	sizer_termine->Add(lv_termine, 1, wxEXPAND | wxALL, 0);
 	wxBoxSizer* sizer_termine_bts = new wxBoxSizer(wxHORIZONTAL);
-	sizer_termine_bts->Add(new wxPanel(), 1, wxEXPAND, 0);
+	sizer_termine_bts->Add(new wxPanel(this), 1, wxEXPAND, 0);
 	bt_termine_edt = new wxButton(pl_termine, R::ID_EXPORT, R::EDT);
 	sizer_termine_bts->Add(bt_termine_edt, 0, 0, 0);
 	bt_termine_del = new wxButton(pl_termine, R::ID_IMPORT, R::DEL);

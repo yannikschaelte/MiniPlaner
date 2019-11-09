@@ -105,7 +105,7 @@ void MiniDialog::initComponents() {
 	sizer->Add(gridsizer, 1, wxEXPAND | wxALL, 5);
 
 	wxBoxSizer* btsizer = new wxBoxSizer(wxHORIZONTAL);
-	wxPanel* pl_nn = new wxPanel();
+	wxPanel* pl_nn = new wxPanel(this);
 	pl_nn->SetSize(30, -1);
 	btsizer->Add(pl_nn, 1, wxEXPAND);
 	bt_ok = new wxButton(this, R::ID_BT_OK, R::OK);

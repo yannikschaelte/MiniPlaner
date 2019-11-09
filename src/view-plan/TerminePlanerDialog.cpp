@@ -95,7 +95,7 @@ void TerminePlanerDialog::initComponents() {
 
 	//Navigation
 	wxBoxSizer* btsizer = new wxBoxSizer(wxHORIZONTAL);
-	wxPanel* pl_nn = new wxPanel();
+	wxPanel* pl_nn = new wxPanel(this);
 	pl_nn->SetSize(30, -1);
 	btsizer->Add(pl_nn, 1, wxEXPAND);
 	bt_back = new wxButton(this, R::ID_BT_BACK, R::ZURUECK);

@@ -35,7 +35,7 @@ PlaenePanel::PlaenePanel(wxWindow* parent, App* _app)
 	sizer_r->Add(bt_edt, 0, 0, 0);
 	bt_del = new wxButton(this, R::ID_BT_DEL, R::DEL);
 	sizer_r->Add(bt_del, 0, 0, 0);
-	sizer_r->Add(new wxPanel(), 1, wxEXPAND, 0);
+	sizer_r->Add(new wxPanel(this), 1, wxEXPAND, 0);
 	bt_extras = new wxButton(this, R::ID_BT_COMPUTE, R::EXTRAS);
 	sizer_r->Add(bt_extras, 0, 0, 0);
 	sizer->Add(sizer_r, 0, wxEXPAND, 0);
