@@ -129,7 +129,7 @@ void DataFileHandler::loadSettings() {
 				|| lang == wxLANGUAGE_GERMAN_SWISS) {
 			R::lang = R::LANG_DE;
 		} else {
-			R::lang = R::LANG_DE; //until language selectable
+			R::lang = R::LANG_EN; //until language selectable
 		}
 	}
 	file.Close();
