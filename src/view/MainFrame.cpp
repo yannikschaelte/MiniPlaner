@@ -16,12 +16,13 @@
 #include <wx/intl.h>
 #include "../R.h"
 #include "../file/DataFileHandler.h"
+#include "../img/minis.xpm"
 #include "AboutPanel.h"
 
 MainFrame::MainFrame(App* _app)
 : wxFrame((wxFrame*) NULL, R::ID_ANY, R::MINI_PLANER, wxDefaultPosition, wxDefaultSize, wxMINIMIZE_BOX | wxMAXIMIZE_BOX | wxRESIZE_BORDER | wxSYSTEM_MENU | wxCAPTION | wxCLOSE_BOX) {
 	app = _app;
-	wxFrame::SetIcon(wxIcon(wxT("aaa")));
+	wxFrame::SetIcon(wxICON(minis));
 	wxDisplay display;
 	wxRect screen = display.GetGeometry();
 	wxFrame::SetSize(0, 0, screen.GetWidth() * 3 / 4, screen.GetHeight() * 3 / 4);

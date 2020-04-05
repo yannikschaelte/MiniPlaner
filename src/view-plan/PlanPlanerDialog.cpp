@@ -21,6 +21,7 @@
 #include "../export/HTMLExport.h"
 #include "../export/CSVExport.h"
 #include "../export/ExcelXMLExport.h"
+#include "../img/minis.xpm"
 
 PlanPlanerDialog::PlanPlanerDialog(wxWindow* parent, Planer* planer)
 : wxFrame(parent, R::ID_ANY, R::PLAN_DIALOG + wxT(": ") + planer->printShort(), wxDefaultPosition, wxDefaultSize,
@@ -33,7 +34,7 @@ wxCAPTION | wxMAXIMIZE_BOX | wxRESIZE_BORDER | wxCLOSE_BOX) {
 		return;
 	}
 	controller = new PlanerController(planer, this);
-	wxFrame::SetIcon(wxIcon(wxT("aaa")));
+	wxFrame::SetIcon(wxICON(minis));
 	initComponents();
 	wxDisplay display;
 	wxRect screen = display.GetGeometry();
