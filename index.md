@@ -27,9 +27,8 @@ Ausführliche Informationen zu Bedienung und Funktionsweise finden sich im [Hand
 
 Die Verwendung des Programms ist kostenlos möglich. Rückmeldungen und Kritik sind sehr willkommen, um das Programm weiter verbessern zu können. Suchen Sie sich einfach eine der folgenden gleichwertigen Installationsvarianten aus:
 
-* [MiniPlaner.zip](MiniPlaner.zip) (heruntergeladene Datei per Rechtsklick + "Alle Extrahieren" entpacken
-* [MiniPlaner.7z](MiniPlaner.7z) (mit dem Kompressionsprogramm 7-Zip entpacken
-* [MiniPlaner_Setup.exe](MiniPlaner_Setup.exe) (Installer starten und Anweisungen folgen)
+* [MiniPlaner.zip](https://github.com/yannikschaelte/MiniPlaner/releases/download/v2.0.4/MiniPlaner.zip) (heruntergeladene Datei per Rechtsklick + "Alle Extrahieren" entpacken
+* [MiniPlaner_Setup.exe](https://github.com/yannikschaelte/MiniPlaner/releases/download/v2.0.4/MiniPlaner_Setup.exe) (Installer starten und Anweisungen folgen)
 
 Im entpackten Verzeichnis ``MiniPlaner/`` befindet sich die ausführbare Datei ``MiniPlaner.exe``, dies ist das zu startende Hauptprogramm. Auch eine Deinstallation ist denkbar einfach: Löschen Sie einfach das Verzeichnis ``MiniPlaner/``, da das Programm lediglich hier Daten speichert.
 
@@ -37,8 +36,7 @@ Im entpackten Verzeichnis ``MiniPlaner/`` befindet sich die ausführbare Datei `
 
 Folgende Downloads sind bereits mit Beispieldaten gefüllt und können temporär neben der eigentlichen Installation verwendet werden (eine Installation verwaltet stets nur einen Datensatz):
 
-* [MiniPlaner_Beispiel.zip](MiniPlaner_Beispiel.zip)
-* [MiniPlaner_Beispiel.7z](MiniPlaner_Beispiel.7z)
+* [MiniPlaner_Beispiel.zip](https://github.com/yannikschaelte/MiniPlaner/releases/download/v2.0.4/MiniPlaner_Beispiel.zip)
 
 ## Add-Ons
 
