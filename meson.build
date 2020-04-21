@@ -65,7 +65,7 @@ miniplaner_src = files(
     'src/view/MainFrame.cpp'
 )
 
-wx_dep = dependency('wxwidgets')
+wx_dep = dependency('wxwidgets', version : '>=3.0.4')
 
 if host_machine.system() == 'windows'
     res_inc = include_directories(
