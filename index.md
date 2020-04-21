@@ -59,5 +59,8 @@ Wenn Sie eine ältere Version (&le; 2.0.3) des Programms bereits installiert hab
 * [Handbuch](Handbuch.pdf)
 * E-Mail: ``yannik.schaelte <at> gmail.com``
 
+## Entwickler
 
-&copy; 2018 Yannik Schälte. Alle Rechte vorbehalten.
+Der Code des **MiniPlaner** ist frei verfügbar auf [https://github.com/yannikschaelte/miniplaner](https://github.com/yannikschaelte/miniplaner).
+
+&copy; 2017 Yannik Schälte. Alle Rechte vorbehalten.
