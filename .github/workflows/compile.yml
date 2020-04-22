@@ -1,0 +1,55 @@
+name: Compile
+
+on:
+  push:
+    branches: [ develop ]
+  pull_request:
+    branches: [ develop ]
+
+jobs:
+  ubuntu:
+    name: Ubuntu
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install Dependencies
+      run: |
+        sudo apt update -yq
+        sudo apt install -yq --no-install-recommends meson libwxgtk3.0-gtk3-dev
+    - name: Setup build directory
+      run: meson builddir
+    - name: Compile
+      run: ninja -C builddir
+    - name: Test
+      run: ninja -C builddir test
+
+  macos:
+    name: macOS
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install Dependencies
+      run: brew install meson wxmac
+    - name: Setup build directory
+      run: meson builddir
+    - name: Compile
+      run: ninja -C builddir
+    - name: Test
+      run: ninja -C builddir test
+
+  msys2:
+    name: MSYS2
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: numworks/setup-msys2@v1
+      with:
+        update: true  # TODO: remove once MSYS2's installation tarball is more recent than 20190524
+    - name: Install Dependencies
+      run: msys2do pacman --noconfirm -S mingw-w64-x86_64-meson mingw-w64-x86_64-gcc mingw-w64-x86_64-wxWidgets
+    - name: Setup build directory
+      run: msys2do meson builddir
+    - name: Compile
+      run: msys2do ninja -C builddir
+    - name: Test
+      run: msys2do ninja -C builddir test
