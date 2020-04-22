@@ -1,5 +1,7 @@
 # MiniPlaner
 
+![Compile](https://github.com/yannikschaelte/MiniPlaner/workflows/Compile/badge.svg)
+
 An application to efficiently create high-quality service plans.
 
 ## License
