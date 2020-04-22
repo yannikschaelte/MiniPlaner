@@ -1,9 +1,13 @@
 # Contribute to MiniPlaner
 
 
-We are happy about contributions to MiniPlaner in any form, be it new functionality, documentation, bug reports, feature requests, or anything else.
+We are happy about contributions to MiniPlaner in any form, be it new 
+functionality, documentation, bug reports, feature requests, or anything else.
 
-If you would like to contribute to MiniPlaner, a good start is looking for [issues](https://github.com/yannikschaelte/MiniPlaner/issues), in particular ones marked `good first issue` or `help wanted`. For other ideas or questions, just post an issues.
+If you would like to contribute to MiniPlaner, a good start is looking for 
+[issues](https://github.com/yannikschaelte/MiniPlaner/issues), in particular 
+ones marked `good first issue` or `help wanted`. For other ideas or questions, 
+just post an issues.
 
 
 ## Branches / releases

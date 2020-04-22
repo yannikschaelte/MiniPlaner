@@ -1,18 +1,22 @@
 # MiniPlaner
 
+
 ![Compile](https://github.com/yannikschaelte/MiniPlaner/workflows/Compile/badge.svg)
 
 An application to efficiently create high-quality service plans.
 
+
 ## License
 
 The MiniPlaner is made available under a [LGPL-3.0 license](LICENSE).
+
 
 ## Users
 
 If you are interested in using the MiniPlaner, check out the 
 [Homepage](https://yannikschaelte.github.io/MiniPlaner). 
 Pre-built binaries are available there for various systems.
+
 
 ## Developers
 
