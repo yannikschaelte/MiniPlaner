@@ -23,7 +23,6 @@ private:
 	App* app;
 	
 	std::vector<Messdiener*> shownMinis;
-	int selectedCol = -1;
 	void sortByString(bool inc, wxString Messdiener::* var);
 	
 	wxBoxSizer* sizer;

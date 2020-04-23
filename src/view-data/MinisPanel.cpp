@@ -150,17 +150,6 @@ void MinisPanel::onLIKey(wxListEvent& evt) {
 		}
 	}
 }
-/**
-void MinisPanel::onColClick(wxListEvent& evt) {
-	int col = evt.GetColumn();
-	if (col != 3 && col != 6) {
-		wxString Messdiener::* list[] = {&Messdiener::name, &Messdiener::vorname};
-		sortByString(col == selectedCol, &Messdiener::name);
-	} else if (col == 3) {
-
-	}
-	selectedCol = col;
-}**/
 
 void MinisPanel::sortByString(bool inc, wxString Messdiener::* var) {
 	if (inc) {
