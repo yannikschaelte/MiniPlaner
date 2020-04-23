@@ -39,7 +39,7 @@ When making code contributions, please follow our style guide and the process
 described below:
 
 * Check if you agree to release your contribution under the conditions provided
-  in `LICENSE`. By opening a pull requests you confirm us that you do agree.
+  in [`LICENSE`](LICENSE). By opening a pull requests you confirm us that you do agree.
   
 * Start a new branch from `develop` (on your fork, or at the main
   repository if you have access)
