@@ -1,36 +1,26 @@
-# [MiniPlaner](https://yannikschaelte.github.io/MiniPlaner/)
+# MiniPlaner
+
 
 ![Compile](https://github.com/yannikschaelte/MiniPlaner/workflows/Compile/badge.svg)
 
 An application to efficiently create high-quality service plans.
 
-## Dependencies
 
-* The Meson Build System: [Getting meson](https://mesonbuild.com/Getting-meson.html)
-* wxWidgets (via a config tool like `wx-config`): [Downloads — wxWidgets](https://www.wxwidgets.org/downloads/)
+## License
 
-## Compiling
+The MiniPlaner is made available under a [LGPL-3.0 license](LICENSE).
 
-See [Compiling a Meson project](https://mesonbuild.com/Quick-guide.html#compiling-a-meson-project).
 
-### Selecting the config tool
+## Users
 
-For explicitly setting the config tool used for wxWidgets, describe the [native environment](https://mesonbuild.com/Native-environments.html) used by meson. 
+If you are interested in using the MiniPlaner, check out the 
+[Homepage](https://yannikschaelte.github.io/MiniPlaner). 
+Pre-built binaries are available there for various systems.
 
-#### Example
 
-```ini
-[binaries]
-wx-config = 'wx-config-custom'
-```
+## Developers
 
-Either configure a _persistent_ native environment in one of the [native file locations](https://mesonbuild.com/Native-environments.html#native-file-locations) or supply the native file to meson when configuring the build directory with `--native-file NATIVE_FILE`.
-
-### MSYS2
-
-Package scripts are available in [MiniPlaner-MINGW](https://github.com/mwkroening/MiniPlaner-MINGW).
-
-#### Static compilation
-
-When compiling an executable to be independent of MSYS2, select `wx-config-static` as config tool for wxWidgets and append `-static` to your `LDFLAGS` before configuring the build directory.
+If you are interested in building the program yourself, or in 
+contributing to the project, check out the [contributing guide](CONTRIBUTING.md)
+and the [installation guide](INSTALL.md).
 
