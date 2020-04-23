@@ -258,7 +258,6 @@ namespace R {
 
 	void setSubWindowPosition(wxWindow* parent, wxDialog* self);
 
-	extern const wxString VERSION_ID;
 	extern const int VERSION_NUMBER;//need number for comparison
 
 	extern wxString window_size;

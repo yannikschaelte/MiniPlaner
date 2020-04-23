@@ -473,7 +473,6 @@ void R::setSubWindowPosition(wxWindow* parent, wxDialog* self) {
 	self->SetPosition(wxPoint(parent_point.x + parent_size.x - own_size.x - 150, parent_point.y + 30));
 }
 
-const wxString R::VERSION_ID = wxT("2.0.4");
 const int R::VERSION_NUMBER = 4;//need number for comparison
 
 wxString R::window_size = wxT("");
