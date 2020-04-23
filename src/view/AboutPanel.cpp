@@ -54,8 +54,6 @@ AboutPanel::AboutPanel(wxWindow* parent)
 	sizer_2->Add(new wxStaticText(this, R::ID_ANY, wxT("mingw32 4.8.1-4")), 0, wxALL, 2);
 	sizer_2->Add(new wxStaticText(this, R::ID_ANY, R::BIBLIOTHEKEN), 0, wxALL, 2);
 	sizer_2->Add(new wxStaticText(this, R::ID_ANY, wxT("wxWidgets 3.0.2 (unicode, static)")), 0, wxALL, 2);
-	sizer_2->Add(new wxStaticText(this, R::ID_ANY, R::BUILDDATUM), 0, wxALL, 2);
-	sizer_2->Add(new wxStaticText(this, R::ID_ANY, R::BUILDDATUM_DATE), 0, wxALL, 2);
 	sizer_2->Add(new wxStaticText(this, R::ID_ANY, R::INSTALLATIONSVERZEICHNIS), 0, wxALL, 2);
 	wxFileName file(wxStandardPaths::Get().GetExecutablePath());
 	sizer_2->Add(new wxStaticText(this, R::ID_ANY, file.GetPath()), 0, wxALL, 2);

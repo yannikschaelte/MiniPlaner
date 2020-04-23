@@ -187,7 +187,6 @@ wxString R::HEADLINE = wxT("ein Programm zum effizienten Erstellen hochwertiger 
 wxString R::AUTOR = wxT("Autor: ");
 wxString R::KOMPILIERTMIT = wxT("Kompiliert mit: ");
 wxString R::BIBLIOTHEKEN = wxT("Bibliotheken: ");
-wxString R::BUILDDATUM = wxT("Build-Datum: ");
 wxString R::INSTALLATIONSVERZEICHNIS = wxT("Installationsverzeichnis: ");
 //Einstellungen
 wxString R::MSG_LANG_CHANGE_DE = wxT("(Änderung erst bei Programm-Neustart wirksam)");
@@ -429,7 +428,6 @@ void R::setLangEN() {
 	R::AUTOR = wxT("Author: ");
 	R::KOMPILIERTMIT = wxT("Compiled with: ");
 	R::BIBLIOTHEKEN = wxT("Libraries: ");
-	R::BUILDDATUM = wxT("Build date: ");
 	R::INSTALLATIONSVERZEICHNIS = wxT("Installation directory: ");
 
 	//Einstellungen
@@ -477,6 +475,5 @@ void R::setSubWindowPosition(wxWindow* parent, wxDialog* self) {
 
 const wxString R::VERSION_ID = wxT("2.0.4");
 const int R::VERSION_NUMBER = 4;//need number for comparison
-const wxString R::BUILDDATUM_DATE = wxT("01.03.2019");
 
 wxString R::window_size = wxT("");
