@@ -13,7 +13,7 @@ just post an issues.
 ## Branches / releases
 
 MiniPlaner roughly follows the
-[GitFlow](https://nvie.com/posts/a-successful-git-branching-model/). All new
+[git-flow](https://nvie.com/posts/a-successful-git-branching-model/). All new
 contributions are merged into `develop`. These changes are regularly merged
 into `master` as new releases. For release versioning we are trying to follow
 [semantic versioning](https://semver.org/).
