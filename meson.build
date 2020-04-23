@@ -1,5 +1,5 @@
 project('MiniPlaner', 'cpp',
-    license : 'GPL3',
+    license : 'LGPL3',
     version : '2.0.4',
     default_options : ['cpp_std=c++11']
 )
