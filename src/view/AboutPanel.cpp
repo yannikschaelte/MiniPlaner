@@ -15,7 +15,6 @@
 
 AboutPanel::AboutPanel(wxWindow* parent)
 : wxPanel(parent, R::ID_ANY) {
-	SetBackgroundColour(*wxWHITE);
 	wxBoxSizer* sizer = new wxBoxSizer(wxVERTICAL);
 
 	wxBoxSizer* sizer_1 = new wxBoxSizer(wxHORIZONTAL);

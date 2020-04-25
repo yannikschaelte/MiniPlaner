@@ -119,7 +119,6 @@ void PlanPlanerDialog::initComponents() {
 	wxBoxSizer* sizer_maske_wrap = new wxBoxSizer(wxVERTICAL);
 	sizer_maske_wrap->Add(sizer_maske, 1, wxEXPAND | wxALL, 10);
 	pl_maske->SetSizer(sizer_maske_wrap);
-	pl_maske->SetBackgroundColour(*wxWHITE);
 	nb_termine->InsertPage(0, pl_maske, R::MASKE);
 
 	//Vorschau
@@ -140,7 +139,6 @@ void PlanPlanerDialog::initComponents() {
 	bt_options = new wxButton(pl_r, R::ID_BT_EDT2, R::EINSTELLUNGEN);
 	sizer_r->Add(bt_options, 0, wxEXPAND, 0);
 	bt_compute = new wxButton(pl_r, R::ID_BT_COMPUTE, R::AUTOMATISCH);
-	bt_compute->SetBackgroundColour(wxColour(225, 255, 164, 255));
 	sizer_r->Add(bt_compute, 0, wxEXPAND, 0);
 	bt_stop = new wxButton(pl_r, R::ID_BT_STOP, R::STOPPEN);
 	bt_stop->Disable();
@@ -567,7 +565,9 @@ void PlanPlanerDialog::onShowPMiniChoiceDialog(wxMouseEvent& evt) {
 void PlanPlanerDialog::highlightPMiniChoiceDialog(PTermin* termin, int dienst, int mini_i) {
 	PMessdiener* mini = termin->list_dienst_minis.at(dienst).second.at(mini_i);
 	highlight(mini);
+	tview_choices.at(termin->_id).at(dienst).at(mini_i)->SetForegroundColour(colour_highlighttext);
 	tview_choices.at(termin->_id).at(dienst).at(mini_i)->SetBackgroundColour(colour_selection);
+	tview_pls.at(termin->_id).at(dienst).at(mini_i)->SetForegroundColour(colour_highlighttext);
 	tview_pls.at(termin->_id).at(dienst).at(mini_i)->SetBackgroundColour(colour_selection);
 	tview_pls.at(termin->_id).at(dienst).at(mini_i)->Refresh();
 }
@@ -586,7 +586,9 @@ void PlanPlanerDialog::unHighlight() {
 		for (int j = 0; j < num_dienste; j++) {
 			int num_einsaetze = tview_choices.at(i).at(j).size();
 			for (int k = 0; k < num_einsaetze; k++) {
+				tview_choices.at(i).at(j).at(k)->SetForegroundColour(colour_default);
 				tview_choices.at(i).at(j).at(k)->SetBackgroundColour(colour_default);
+				tview_pls.at(i).at(j).at(k)->SetForegroundColour(colour_default);
 				tview_pls.at(i).at(j).at(k)->SetBackgroundColour(colour_default);
 				tview_pls.at(i).at(j).at(k)->Refresh();
 			}
@@ -610,11 +612,15 @@ void PlanPlanerDialog::highlight(PMessdiener* mini) {
 				int num_einsaetze = tview_choices.at(i).at(j).size();
 				for (int k = 0; k < num_einsaetze; k++) {
 					if (mini == controller->planer->list_termin.at(i)->list_dienst_minis.at(j).second.at(k)) {
+						tview_choices.at(i).at(j).at(k)->SetForegroundColour(colour_highlighttext);
 						tview_choices.at(i).at(j).at(k)->SetBackgroundColour(colour_highlight);
+						tview_pls.at(i).at(j).at(k)->SetForegroundColour(colour_highlighttext);
 						tview_pls.at(i).at(j).at(k)->SetBackgroundColour(colour_highlight);
 						tview_pls.at(i).at(j).at(k)->Refresh();
 					} else {
+						tview_choices.at(i).at(j).at(k)->SetForegroundColour(colour_default);
 						tview_choices.at(i).at(j).at(k)->SetBackgroundColour(colour_default);
+						tview_pls.at(i).at(j).at(k)->SetForegroundColour(colour_default);
 						tview_pls.at(i).at(j).at(k)->SetBackgroundColour(colour_default);
 						tview_pls.at(i).at(j).at(k)->Refresh();
 					}
