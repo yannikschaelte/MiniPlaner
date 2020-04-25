@@ -13,8 +13,8 @@
 #include "DataFileHandler.h"
 #include "../Util.h"
 
-const wxString PlanFileHandler::RES = DataFileHandler::RES;
-const wxString PlanFileHandler::D = DataFileHandler::D;
+const wxString PlanFileHandler::RES = wxT("res");
+const wxString PlanFileHandler::D = wxT("\t");
 const wxString PlanFileHandler::DIENSTEFILE = wxT("/dienste.dat");
 const wxString PlanFileHandler::MINISFILE = wxT("/minis.dat");
 const wxString PlanFileHandler::TERMINEFILE = wxT("/termine.dat");
