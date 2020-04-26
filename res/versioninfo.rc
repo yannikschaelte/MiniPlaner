@@ -2,13 +2,11 @@
 
 #include <windows.h>
 
-#define VER_VERSION     2,0,4,0
-#define VER_VERSION_STR "2.0.4"
-#define VER_NAME_STR    "MiniPlaner"
+#include <config.h>
 
 VS_VERSION_INFO VERSIONINFO
-FILEVERSION     VER_VERSION
-PRODUCTVERSION  VER_VERSION
+FILEVERSION     VERSION_BIN
+PRODUCTVERSION  VERSION_BIN
 FILEOS          VOS_NT_WINDOWS32
 FILETYPE        VFT_APP
 {
@@ -16,14 +14,14 @@ FILETYPE        VFT_APP
     {
         BLOCK "040904B0"  // en_US.UTF-8
         {
-            VALUE "CompanyName",      "Yannik Schälte"
-            VALUE "FileDescription",  VER_NAME_STR
-            VALUE "FileVersion",      VER_VERSION_STR
-            VALUE "InternalName",     VER_NAME_STR
-            VALUE "LegalCopyright",   "©Yannik Schälte; available under the LGPL-3.0"
+            VALUE "CompanyName",      AUTHOR_STR
+            VALUE "FileDescription",  NAME_STR
+            VALUE "FileVersion",      VERSION_STR
+            VALUE "InternalName",     NAME_STR
+            VALUE "LegalCopyright",   COPYRIGHT_STR
             VALUE "OriginalFilename", "miniplaner.exe"
-            VALUE "ProductName",      VER_NAME_STR
-            VALUE "ProductVersion",   VER_VERSION_STR
+            VALUE "ProductName",      NAME_STR
+            VALUE "ProductVersion",   VERSION_STR
         }
     }
 

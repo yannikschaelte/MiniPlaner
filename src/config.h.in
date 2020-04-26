@@ -1,0 +1,9 @@
+#pragma once
+
+#define NAME_STR "@name@"
+#define AUTHOR_STR "Yannik Schälte"
+#define COPYRIGHT_STR "©" AUTHOR_STR "; available under @license@"
+#define VERSION_STR "@version@"
+#define VERSION_BIN @version_bin@
+#define COMPILER_STR "@compiler@"
+#define WX_DEP_STR "@wx_dep@"

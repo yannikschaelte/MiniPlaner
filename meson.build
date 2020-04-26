@@ -4,6 +4,28 @@ project('MiniPlaner', 'cpp',
     default_options : ['cpp_std=c++11']
 )
 
+wx_dep = dependency('wxwidgets', version : '>=3.0.4')
+
+conf_data = configuration_data()
+conf_data.set('name', meson.project_name())
+conf_data.set('license', ', '.join(meson.project_license()))
+conf_data.set('version', meson.project_version())
+version_array = meson.project_version().split('.')
+version_array_4 = [
+    version_array[0],
+    version_array[1],
+    version_array[2],
+    version_array.get(3, '0')
+]
+conf_data.set('version_bin', ','.join(version_array_4))
+cpp_compiler = meson.get_compiler('cpp')
+conf_data.set('compiler', cpp_compiler.get_id() + ' ' + cpp_compiler.version())
+conf_data.set('wx_dep', 'WxWidgets ' + wx_dep.version())
+configure_file(input : 'src/config.h.in',
+               output : 'config.h',
+               configuration : conf_data)
+
+miniplaner_inc = include_directories('.')
 miniplaner_src = files(
     'src/App.cpp',
     'src/MiniPlaner.cpp',
@@ -65,10 +87,9 @@ miniplaner_src = files(
     'src/view/MainFrame.cpp'
 )
 
-wx_dep = dependency('wxwidgets', version : '>=3.0.4')
-
 if host_machine.system() == 'windows'
     res_inc = include_directories(
+        '.',
         'src/img'
     )
     res_dep_files = files(
@@ -90,6 +111,7 @@ if host_machine.system() == 'windows'
 endif
 
 executable('miniplaner', miniplaner_src,
+  include_directories : miniplaner_inc,
   dependencies : [wx_dep],
   install : true
 )

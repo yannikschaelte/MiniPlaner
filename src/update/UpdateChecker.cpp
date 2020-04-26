@@ -8,6 +8,7 @@
 #include "UpdateChecker.h"
 #include <wx/utils.h>
 #include <wx/sstream.h>
+#include <config.h>
 #include "../R.h"
 
 void UpdateChecker::checkUpdate(wxWindow* parent) {
@@ -18,7 +19,7 @@ void UpdateChecker::checkUpdate(wxWindow* parent) {
 		if (in && in->IsOk()) {
 			wxStringOutputStream html_stream(&htmlData);
 			in->Read(html_stream);
-			if (!htmlData.IsSameAs(R::VERSION_ID)) {
+			if (!htmlData.IsSameAs(wxT(VERSION_STR))) {
 				UpdateDialog dialog(parent);
 				dialog.ShowModal();
 			}

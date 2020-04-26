@@ -193,9 +193,9 @@ namespace R {
 	//Über
 	extern wxString HEADLINE;
 	extern wxString AUTOR;
+	extern wxString BEITRAGENDE;
 	extern wxString KOMPILIERTMIT;
 	extern wxString BIBLIOTHEKEN;
-	extern wxString BUILDDATUM;
 	extern wxString INSTALLATIONSVERZEICHNIS;
 	//Einstellungen
 	extern wxString MSG_LANG_CHANGE_EN;
@@ -259,9 +259,7 @@ namespace R {
 
 	void setSubWindowPosition(wxWindow* parent, wxDialog* self);
 
-	extern const wxString VERSION_ID;
 	extern const int VERSION_NUMBER;//need number for comparison
-	extern const wxString BUILDDATUM_DATE;
 
 	extern wxString window_size;
 };

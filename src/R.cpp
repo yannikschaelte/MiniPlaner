@@ -185,9 +185,9 @@ wxString R::KOPIERTWARNICHTMOEGLICH = wxT("\nBei folgenden Minis war dies nicht 
 //Über
 wxString R::HEADLINE = wxT("ein Programm zum effizienten Erstellen hochwertiger Ministrantenpläne");
 wxString R::AUTOR = wxT("Autor: ");
+wxString R::BEITRAGENDE = wxT("Beitragende: ");
 wxString R::KOMPILIERTMIT = wxT("Kompiliert mit: ");
 wxString R::BIBLIOTHEKEN = wxT("Bibliotheken: ");
-wxString R::BUILDDATUM = wxT("Build-Datum: ");
 wxString R::INSTALLATIONSVERZEICHNIS = wxT("Installationsverzeichnis: ");
 //Einstellungen
 wxString R::MSG_LANG_CHANGE_DE = wxT("(Änderung erst bei Programm-Neustart wirksam)");
@@ -427,9 +427,9 @@ void R::setLangEN() {
 	//Über
 	R::HEADLINE = wxT("a small program to efficiently create high-quality service plans");
 	R::AUTOR = wxT("Author: ");
+	R::BEITRAGENDE = wxT("Contributors: ");
 	R::KOMPILIERTMIT = wxT("Compiled with: ");
 	R::BIBLIOTHEKEN = wxT("Libraries: ");
-	R::BUILDDATUM = wxT("Build date: ");
 	R::INSTALLATIONSVERZEICHNIS = wxT("Installation directory: ");
 
 	//Einstellungen
@@ -475,8 +475,6 @@ void R::setSubWindowPosition(wxWindow* parent, wxDialog* self) {
 	self->SetPosition(wxPoint(parent_point.x + parent_size.x - own_size.x - 150, parent_point.y + 30));
 }
 
-const wxString R::VERSION_ID = wxT("2.0.4");
 const int R::VERSION_NUMBER = 4;//need number for comparison
-const wxString R::BUILDDATUM_DATE = wxT("01.03.2019");
 
 wxString R::window_size = wxT("");
