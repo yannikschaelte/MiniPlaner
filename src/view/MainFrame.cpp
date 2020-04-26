@@ -200,11 +200,9 @@ void MainFrame::handleLBSel(int index) {
 		list_pls.at(i == 8 ? 7 : i)->Show(isSel);
 		if (isSel) {
 			list_tabs.at(i).first->SetBackgroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_HIGHLIGHT));
-			list_tabs.at(i).second->SetBackgroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_HIGHLIGHT));
 			list_tabs.at(i).second->SetForegroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_HIGHLIGHTTEXT));
 		} else {
 			list_tabs.at(i).first->SetBackgroundColour(wxNullColour);
-			list_tabs.at(i).second->SetBackgroundColour(wxNullColour);
 			list_tabs.at(i).second->SetForegroundColour(wxNullColour);
 		}
 		list_tabs.at(i).first->Refresh();
