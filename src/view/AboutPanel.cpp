@@ -32,7 +32,7 @@ AboutPanel::AboutPanel(wxWindow* parent)
 	wxStaticBitmap* sb_icon = new wxStaticBitmap(this, R::ID_ANY, bitmap);
 	sizer_1->Add(sb_icon, 0, wxALL | wxALIGN_CENTER_VERTICAL, 5);
 	wxBoxSizer* sizer_1_r = new wxBoxSizer(wxVERTICAL);
-	wxStaticText* st_name = new wxStaticText(this, R::ID_ANY, wxT(NAME_STR));
+	wxStaticText* st_name = new wxStaticText(this, R::ID_ANY, wxT(NAME_STR " " VERSION_STR));
 	st_name->SetFont(st_name->GetFont().Bold());
 	sizer_1_r->Add(st_name, 0, wxALL, 1);
 	wxStaticText* st_desc = new wxStaticText(this, R::ID_ANY, R::HEADLINE);
@@ -42,8 +42,6 @@ AboutPanel::AboutPanel(wxWindow* parent)
 	sizer->Add(sizer_1, 0, wxEXPAND | wxALL, 10);
 
 	wxFlexGridSizer* sizer_2 = new wxFlexGridSizer(10, 2, 0, 0);
-	sizer_2->Add(new wxStaticText(this, R::ID_ANY, wxT("Version: ")), 0, wxALL, 2);
-	sizer_2->Add(new wxStaticText(this, R::ID_ANY, wxT(VERSION_STR)), 0, wxALL, 2);
 	sizer_2->Add(new wxStaticText(this, R::ID_ANY, R::AUTOR), 0, wxALL, 2);
 	sizer_2->Add(new wxStaticText(this, R::ID_ANY, wxT(AUTHOR_STR)), 0, wxALL, 2);
 	sizer_2->Add(new wxStaticText(this, R::ID_ANY, wxT("E-Mail: ")), 0, wxALL, 2);
