@@ -185,6 +185,7 @@ wxString R::KOPIERTWARNICHTMOEGLICH = wxT("\nBei folgenden Minis war dies nicht 
 //Über
 wxString R::HEADLINE = wxT("ein Programm zum effizienten Erstellen hochwertiger Ministrantenpläne");
 wxString R::AUTOR = wxT("Autor: ");
+wxString R::BEITRAGENDE = wxT("Beitragende: ");
 wxString R::KOMPILIERTMIT = wxT("Kompiliert mit: ");
 wxString R::BIBLIOTHEKEN = wxT("Bibliotheken: ");
 wxString R::INSTALLATIONSVERZEICHNIS = wxT("Installationsverzeichnis: ");
@@ -426,6 +427,7 @@ void R::setLangEN() {
 	//Über
 	R::HEADLINE = wxT("a small program to efficiently create high-quality service plans");
 	R::AUTOR = wxT("Author: ");
+	R::BEITRAGENDE = wxT("Contributors: ");
 	R::KOMPILIERTMIT = wxT("Compiled with: ");
 	R::BIBLIOTHEKEN = wxT("Libraries: ");
 	R::INSTALLATIONSVERZEICHNIS = wxT("Installation directory: ");

@@ -193,6 +193,7 @@ namespace R {
 	//Über
 	extern wxString HEADLINE;
 	extern wxString AUTOR;
+	extern wxString BEITRAGENDE;
 	extern wxString KOMPILIERTMIT;
 	extern wxString BIBLIOTHEKEN;
 	extern wxString INSTALLATIONSVERZEICHNIS;

@@ -48,6 +48,8 @@ AboutPanel::AboutPanel(wxWindow* parent)
 	sizer_2->Add(new wxStaticText(this, R::ID_ANY, wxT("yannik.schaelte@gmail.com")), 0, wxALL, 2);
 	sizer_2->Add(new wxStaticText(this, R::ID_ANY, wxT("Homepage: ")), 0, wxALL, 2);
 	sizer_2->Add(new wxStaticText(this, R::ID_ANY, wxT("https://yannikschaelte.github.io/MiniPlaner/")), 0, wxALL, 2);
+	sizer_2->Add(new wxStaticText(this, R::ID_ANY, R::BEITRAGENDE), 0, wxALL, 2);
+	sizer_2->Add(new wxStaticText(this, R::ID_ANY, wxT("Yannik Schälte, Martin Kröning")), 0, wxALL, 2);
 	sizer_2->AddSpacer(10);
 	sizer_2->AddSpacer(10);
 	sizer_2->Add(new wxStaticText(this, R::ID_ANY, R::KOMPILIERTMIT), 0, wxALL, 2);
