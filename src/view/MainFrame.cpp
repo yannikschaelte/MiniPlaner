@@ -32,7 +32,6 @@ MainFrame::MainFrame(App* _app)
 	wxBoxSizer* sizer = new wxBoxSizer(wxHORIZONTAL);
 
 	pl_tabs = new wxPanel(pl_bg, R::ID_ANY, wxDefaultPosition, wxDefaultSize, wxBORDER_NONE | wxTAB_TRAVERSAL);
-	pl_tabs->SetBackgroundColour(*wxWHITE);
 	wxBoxSizer* sizer_tabs = new wxBoxSizer(wxVERTICAL);
 
 	wxString list_names[9] = {R::DIENSTE, R::MINIS, R::MGRUPPEN, R::TERMINE, R::TGRUPPEN, R::FEHLZEITEN, R::PLAENE, R::HILFE, R::UEBER};
@@ -201,12 +200,10 @@ void MainFrame::handleLBSel(int index) {
 		list_pls.at(i == 8 ? 7 : i)->Show(isSel);
 		if (isSel) {
 			list_tabs.at(i).first->SetBackgroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_HIGHLIGHT));
-			list_tabs.at(i).second->SetBackgroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_HIGHLIGHT));
 			list_tabs.at(i).second->SetForegroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_HIGHLIGHTTEXT));
 		} else {
-			list_tabs.at(i).first->SetBackgroundColour(*wxWHITE);
-			list_tabs.at(i).second->SetBackgroundColour(*wxWHITE);
-			list_tabs.at(i).second->SetForegroundColour(*wxBLACK);
+			list_tabs.at(i).first->SetBackgroundColour(wxNullColour);
+			list_tabs.at(i).second->SetForegroundColour(wxNullColour);
 		}
 		list_tabs.at(i).first->Refresh();
 	}

@@ -57,9 +57,10 @@ private:
 	std::vector<std::vector<std::vector<wxPanel*> > > tview_pls;
 	PMessdiener* tview_mini_high = NULL;
 	bool continueComputation = false;
-	const wxColour colour_default = *wxWHITE;
-	const wxColour colour_highlight = wxColour(255, 255, 153, 255);
-	const wxColour colour_selection = wxColour(255, 230, 130, 255);
+	const wxColour colour_default = wxNullColour;
+	const wxColour colour_highlight = wxSystemSettings::GetColour(wxSYS_COLOUR_HIGHLIGHT);
+	const wxColour colour_highlighttext = wxSystemSettings::GetColour(wxSYS_COLOUR_HIGHLIGHTTEXT);
+	const wxColour colour_selection = wxSystemSettings::GetColour(wxSYS_COLOUR_GRAYTEXT);
 
 	wxListView* lv_minis;
 	wxListView* lv_mgruppen;
