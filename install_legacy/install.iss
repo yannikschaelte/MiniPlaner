@@ -33,7 +33,6 @@ Name: "{app}\res"
 
 [Files]
 Source: "C:\Users\Yannik\Documents\Kirche\MiniPlaner\MiniPlaner.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\Yannik\Documents\Kirche\MiniPlaner\img\minis.ico"; DestDir: "{app}\img"; Flags: ignoreversion
 Source: "C:\Users\Yannik\Documents\Kirche\MiniPlaner\help\Handbuch.pdf"; DestDir: "{app}\help"; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
