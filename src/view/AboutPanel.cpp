@@ -10,6 +10,7 @@
 #include <wx/stdpaths.h>
 #include <wx/filename.h>
 #include <wx/image.h>
+#include "../img/minis.xpm"
 #include "../R.h"
 #include "../Util.h"
 
@@ -19,14 +20,16 @@ AboutPanel::AboutPanel(wxWindow* parent)
 	wxBoxSizer* sizer = new wxBoxSizer(wxVERTICAL);
 
 	wxBoxSizer* sizer_1 = new wxBoxSizer(wxHORIZONTAL);
-	wxFileName img_file(wxT("img/minis.ico"));
-	if (img_file.FileExists()) {//programme can still be opened
-		wxImage::AddHandler(new wxICOHandler);
-		wxBitmap bitmap;
-		bitmap.LoadFile(wxT("img/minis.ico"), wxBITMAP_TYPE_ICO);
-		wxGenericStaticBitmap* sb_icon = new wxGenericStaticBitmap(this, R::ID_ANY, bitmap);
-		sizer_1->Add(sb_icon, 0, wxALL | wxALIGN_CENTER_VERTICAL, 5);
-	}
+#ifdef __WINDOWS__
+	// Load from a resource with explicit width and height
+	wxIcon icon(wxT("minis"), wxICON_DEFAULT_TYPE, 64, 64);
+#else
+	wxIcon icon = wxICON(minis);
+#endif
+	wxBitmap bitmap;
+	bitmap.CopyFromIcon(icon);
+	wxStaticBitmap* sb_icon = new wxStaticBitmap(this, R::ID_ANY, bitmap);
+	sizer_1->Add(sb_icon, 0, wxALL | wxALIGN_CENTER_VERTICAL, 5);
 	wxBoxSizer* sizer_1_r = new wxBoxSizer(wxVERTICAL);
 	wxStaticText* st_name = new wxStaticText(this, R::ID_ANY, wxT("MiniPlaner"));
 	st_name->SetFont(st_name->GetFont().Bold());
