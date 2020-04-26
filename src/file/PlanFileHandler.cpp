@@ -84,7 +84,7 @@ void PlanFileHandler::savePlaner(Planer* planer) {
 				+ (t.next == NULL ? wxT("-1") : wxString::Format(wxT("%i"), t.next->_id)) + D
 				+ t.bem;
 		termine_file.AddLine(line);
-		line = wxString::Format(wxT("%i"), t.list_dienst_num.size());
+		line = wxString::Format(wxT("%zu"), t.list_dienst_num.size());
 		termine_file.AddLine(line); //Anzahl Dienste, gleich für alle Listen
 		for (std::vector<std::pair<Dienst*, std::vector<PMessdiener*> > >::iterator iter = t.list_dienst_minis.begin(); iter != t.list_dienst_minis.end(); iter++) {
 			line = wxString::Format(wxT("%i"), iter->first->_id);
