@@ -5,6 +5,8 @@
  * Created on August 11, 2015, 4:00 PM
  */
 
+#include <config.h>
+#include "../Paths.h"
 #include "MainFrame.h"
 #include <wx/textfile.h>
 #include <wx/dir.h>
@@ -18,6 +20,12 @@
 #include "../file/DataFileHandler.h"
 #include "../img/minis.xpm"
 #include "AboutPanel.h"
+#include "SettingsPanel.h"
+
+namespace {
+	const int NUM_TABS = 10; //sidebar entries; the help entry opens the manual instead of a panel
+	const int TAB_HELP = 7;
+}
 
 MainFrame::MainFrame(App* _app)
 : wxFrame((wxFrame*) NULL, R::ID_ANY, R::MINI_PLANER, wxDefaultPosition, wxDefaultSize, wxMINIMIZE_BOX | wxMAXIMIZE_BOX | wxRESIZE_BORDER | wxSYSTEM_MENU | wxCAPTION | wxCLOSE_BOX) {
@@ -34,9 +42,9 @@ MainFrame::MainFrame(App* _app)
 	pl_tabs = new wxPanel(pl_bg, R::ID_ANY, wxDefaultPosition, wxDefaultSize, wxBORDER_NONE | wxTAB_TRAVERSAL);
 	wxBoxSizer* sizer_tabs = new wxBoxSizer(wxVERTICAL);
 
-	wxString list_names[9] = {R::DIENSTE, R::MINIS, R::MGRUPPEN, R::TERMINE, R::TGRUPPEN, R::FEHLZEITEN, R::PLAENE, R::HILFE, R::UEBER};
-	list_tabs.reserve(9);
-	for (int i = 0; i < 9; i++) {
+	wxString list_names[NUM_TABS] = {R::DIENSTE, R::MINIS, R::MGRUPPEN, R::TERMINE, R::TGRUPPEN, R::FEHLZEITEN, R::PLAENE, R::HILFE, R::EINSTELLUNGEN, R::UEBER};
+	list_tabs.reserve(NUM_TABS);
+	for (int i = 0; i < NUM_TABS; i++) {
 		wxPanel* pl = new wxPanel(pl_tabs, 1000 + i);
 		wxBoxSizer* sz = new wxBoxSizer(wxHORIZONTAL);
 		wxStaticText* st = new wxStaticText(pl, 1000 + i, list_names[i]);
@@ -44,7 +52,7 @@ MainFrame::MainFrame(App* _app)
 		wxBoxSizer* sz2 = new wxBoxSizer(wxHORIZONTAL);
 		sz2->Add(sz, 1, wxEXPAND | wxTOP | wxBOTTOM, 2);
 		pl->SetSizer(sz2);
-		if (i == 7) sizer_tabs->Add(new wxPanel(pl_tabs, R::ID_ANY), 1, wxEXPAND, 0);
+		if (i == TAB_HELP) sizer_tabs->Add(new wxPanel(pl_tabs, R::ID_ANY), 1, wxEXPAND, 0);
 		sizer_tabs->Add(pl, 0, wxEXPAND | wxALL, 0);
 
 		pl->Bind(wxEVT_LEFT_DOWN, &MainFrame::onLBSel, this);
@@ -65,6 +73,7 @@ MainFrame::MainFrame(App* _app)
 	t_gruppen_panel = new TGruppenPanel(pl_bg, app);
 	fehlzeiten_panel = new FehlzeitenPanel(pl_bg, app);
 	plaene_panel = new PlaenePanel(pl_bg, app);
+	settings_panel = new SettingsPanel(pl_bg);
 	about_panel = new AboutPanel(pl_bg);
 
 	sizer_r = new wxBoxSizer(wxVERTICAL);
@@ -76,9 +85,10 @@ MainFrame::MainFrame(App* _app)
 	sizer_r->Add(t_gruppen_panel, 1, wxEXPAND | wxALL, 0);
 	sizer_r->Add(fehlzeiten_panel, 1, wxEXPAND | wxALL, 0);
 	sizer_r->Add(plaene_panel, 1, wxEXPAND | wxALL, 0);
+	sizer_r->Add(settings_panel, 1, wxEXPAND | wxALL, 0);
 	sizer_r->Add(about_panel, 1, wxEXPAND | wxALL, 0);
 
-	list_pls.reserve(8);
+	list_pls.reserve(NUM_TABS - 1);
 	list_pls.push_back(dienste_panel);
 	list_pls.push_back(minis_panel);
 	list_pls.push_back(m_gruppen_panel);
@@ -86,6 +96,7 @@ MainFrame::MainFrame(App* _app)
 	list_pls.push_back(t_gruppen_panel);
 	list_pls.push_back(fehlzeiten_panel);
 	list_pls.push_back(plaene_panel);
+	list_pls.push_back(settings_panel);
 	list_pls.push_back(about_panel);
 
 	handleLBSel(1); //init with minis
@@ -172,7 +183,7 @@ END_EVENT_TABLE()
 
 void MainFrame::onLBSel(wxMouseEvent& evt) {
 	wxWindow* wnd = (wxWindow*) evt.GetEventObject();
-	for (int i = 0; i < 9; i++) {
+	for (int i = 0; i < NUM_TABS; i++) {
 		if (wnd == (wxWindow*) list_tabs.at(i).first || wnd == (wxWindow*) list_tabs.at(i).second) {
 			handleLBSel(i);
 			return;
@@ -181,23 +192,18 @@ void MainFrame::onLBSel(wxMouseEvent& evt) {
 }
 
 void MainFrame::handleLBSel(int index) {
-	if (index == 7) {
-		wxFileType* filetype = wxTheMimeTypesManager->GetFileTypeFromExtension(wxString("pdf"));
-		if (filetype == NULL) {
+	if (index == TAB_HELP) {
+		if (!wxLaunchDefaultBrowser(wxT(MANUAL_STR))) {
 			wxMessageDialog dialog(this, R::MSG_MANUAL_NOT_OPENED, wxMessageBoxCaptionStr, wxOK | wxCENTRE);
 			dialog.ShowModal();
-		} else {
-			wxString cmd = filetype->GetOpenCommand(wxT("help/Handbuch.pdf"));
-			wxExecute(cmd);
-			delete filetype;
 		}
 		return;
 	}
 	if (index == sel) return;
-	for (int i = 0; i < 9; i++) {
-		if (i == 7) continue;
+	for (int i = 0; i < NUM_TABS; i++) {
+		if (i == TAB_HELP) continue;
 		bool isSel = (i == index);
-		list_pls.at(i == 8 ? 7 : i)->Show(isSel);
+		list_pls.at(i > TAB_HELP ? i - 1 : i)->Show(isSel);
 		if (isSel) {
 			list_tabs.at(i).first->SetBackgroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_HIGHLIGHT));
 			list_tabs.at(i).second->SetForegroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_HIGHLIGHTTEXT));

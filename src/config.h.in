@@ -7,3 +7,5 @@
 #define VERSION_BIN @version_bin@
 #define COMPILER_STR "@compiler@"
 #define WX_DEP_STR "@wx_dep@"
+#define HOMEPAGE_STR "@homepage@"
+#define MANUAL_STR "@homepage@Handbuch.pdf"

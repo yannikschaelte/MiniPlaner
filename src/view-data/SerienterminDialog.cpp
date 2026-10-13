@@ -118,7 +118,7 @@ void SerienterminDialog::initComponents() {
 	dc_datum_beginn->Enable(false);
 	sizer_datum_beginn->Add(dc_datum_beginn, 1, wxEXPAND | wxALL, 0);
 	st_datum_beginn_wday = new wxStaticText(this, R::ID_ANY, wxT(""), wxDefaultPosition, wxDefaultSize, wxALIGN_RIGHT | wxST_NO_AUTORESIZE);
-	sizer_datum_beginn->Add(st_datum_beginn_wday, 1, wxALL | wxALIGN_CENTER_VERTICAL | wxALIGN_RIGHT, 2);
+	sizer_datum_beginn->Add(st_datum_beginn_wday, 1, wxALL | wxALIGN_CENTER_VERTICAL, 2);
 	gridsizer->Add(sizer_datum_beginn, 1, wxEXPAND | wxALL, 2);
 
 	st_datum_ende = new wxStaticText(this, R::ID_ANY, R::DATUM_BIS);
@@ -131,7 +131,7 @@ void SerienterminDialog::initComponents() {
 	dc_datum_ende->Enable(false);
 	sizer_datum_ende->Add(dc_datum_ende, 1, wxEXPAND | wxALL, 0);
 	st_datum_ende_wday = new wxStaticText(this, R::ID_ANY, wxT(""), wxDefaultPosition, wxDefaultSize, wxALIGN_RIGHT | wxST_NO_AUTORESIZE);
-	sizer_datum_ende->Add(st_datum_ende_wday, 1, wxALL | wxALIGN_CENTER_VERTICAL | wxALIGN_RIGHT, 2);
+	sizer_datum_ende->Add(st_datum_ende_wday, 1, wxALL | wxALIGN_CENTER_VERTICAL, 2);
 	gridsizer->Add(sizer_datum_ende, 0, wxEXPAND | wxALL, 2);
 
 	st_bem = new wxStaticText(this, R::ID_ANY, R::BEM);

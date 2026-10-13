@@ -46,7 +46,7 @@ TerminePanel::TerminePanel(wxWindow* parent, App* _app)
 	sizer_einzel_r->Add(bt_einzel_edt, 0, 0, 0);
 	bt_einzel_del = new wxButton(pl_1, R::ID_BT_DEL, R::DEL);
 	sizer_einzel_r->Add(bt_einzel_del, 0, 0, 0);
-	sizer_einzel_r->Add(new wxPanel(this, R::ID_ANY), 1, wxEXPAND, 0);
+	sizer_einzel_r->Add(new wxPanel(pl_1, R::ID_ANY), 1, wxEXPAND, 0);
 	bt_einzel_import = new wxButton(pl_1, R::ID_IMPORT, R::IMPORT);
 	sizer_einzel_r->Add(bt_einzel_import, 0, 0, 0);
 	sizer_einzel->Add(sizer_einzel_r, 0, wxEXPAND, 0);

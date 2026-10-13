@@ -44,6 +44,7 @@ public:
 	std::vector<wxString> list_plzort;
 	virtual bool OnInit();
 	virtual int OnExit();
+	void finishSmokeTest();
 
 	bool addDienst(Dienst* dienst);
 	void delDienst(int index);

@@ -63,7 +63,7 @@ wxString Serientermin::printModus(const Serientermin* s) {
 			t_modus += wxT(": ") + R::WOCHENTAGE[s->wochentag];
 			break;
 		case N_WOECHENTLICH:
-			t_modus = wxString::Format(wxT("%i"), s->n) + wxT("-wöchentlich am ") + R::WOCHENTAGE[s->wochentag] + wxT(", ab (inkl.) der Woche nach [Anfangsdatum]");
+			t_modus = wxString::Format(R::TMODUS_N_WOECHENTLICH, s->n, R::WOCHENTAGE[s->wochentag]);
 			break;
 		case W_IM_MONAT:
 			if (s->n < 5) {

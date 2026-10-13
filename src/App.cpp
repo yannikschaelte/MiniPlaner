@@ -5,6 +5,9 @@
  * Created on August 11, 2015, 4:00 PM
  */
 
+#include "Paths.h"
+#include "UserData.h"
+#include "view/WelcomeWizard.h"
 #include "App.h"
 #include "file/DataFileHandler.h"
 #include "file/PlanFileHandler.h"
@@ -25,15 +28,21 @@ bool App::OnInit() {
 		return false;
 	}**/
 
-	single_instance_checker = new wxSingleInstanceChecker;
+	// "--smoke-test": start with demo data in a temporary directory, then quit (used by CI)
+	const bool smoke_test = argc > 1 && wxString(argv[1]) == wxT("--smoke-test");
+	if (smoke_test) Paths::useTemporaryDir();
+	Paths::init();
+	single_instance_checker = new wxSingleInstanceChecker(wxT("instance.lock"), wxGetCwd());
 	if (single_instance_checker->IsAnotherRunning()) {
 		delete single_instance_checker;
 		return false;
 	}
 
+	bool first_run = UserData::isFirstRun();
 	DataFileHandler::prepareFiles();
-	DataFileHandler::implementUpdates();
 	DataFileHandler::loadSettings();
+	if (first_run && (smoke_test || WelcomeWizard::run())) UserData::loadDemo(false);
+	DataFileHandler::implementUpdates();
 	DataFileHandler::loadDienste(&list_dienst);
 	updateIntNumDienste();
 	DataFileHandler::loadMinis(&list_dienst, &list_mini);
@@ -50,8 +59,20 @@ bool App::OnInit() {
 	initPLZOrte();
 	wxDialog::EnableLayoutAdaptation(true);
 	frame = new MainFrame(this);
+	if (smoke_test) {
+		CallAfter(&App::finishSmokeTest);
+		return true;
+	}
 	UpdateChecker::checkUpdate(frame);
 	return true;
+}
+
+void App::finishSmokeTest() {
+	if (list_mini.empty() || list_einzeltermin.empty()) {
+		wxPrintf(wxT("Smoke test failed: demo data was not loaded\n"));
+		std::exit(1);
+	}
+	frame->Close(true);
 }
 
 int App::OnExit() {
@@ -79,6 +100,7 @@ int App::OnExit() {
 	DataFileHandler::saveSettings();
 	delete single_instance_checker;
 	single_instance_checker = 0;
+	Paths::removeTemporaryDir();
 	return 0;
 }
 

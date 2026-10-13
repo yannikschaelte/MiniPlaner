@@ -5,51 +5,78 @@ on:
     branches: [ develop ]
   pull_request:
     branches: [ develop ]
+  workflow_call:
 
 jobs:
-  ubuntu:
-    name: Ubuntu
-    runs-on: ubuntu-latest
+  unix:
+    name: ${{ matrix.name }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { name: Linux, os: ubuntu-latest }
+          - { name: macOS, os: macos-latest }
+    defaults:
+      run:
+        shell: bash -el {0}
     steps:
-    - uses: actions/checkout@v2
-    - name: Install Dependencies
-      run: |
-        sudo apt update -yq
-        sudo apt install -yq --no-install-recommends meson libwxgtk3.0-gtk3-dev
-    - name: Setup build directory
-      run: meson builddir
-    - name: Compile
-      run: ninja -C builddir
-    - name: Test
-      run: ninja -C builddir test
+      - uses: actions/checkout@v7
+      - uses: mamba-org/setup-micromamba@v3
+        with:
+          environment-file: environment.yml
+          cache-environment: true
+      - run: meson setup .build/meson
+      - run: meson compile -C .build/meson
+      - name: Install Xvfb
+        if: runner.os == 'Linux'
+        run: sudo apt-get update && sudo apt-get install -y xvfb
+      - name: Test (starts the app)
+        run: ${{ runner.os == 'Linux' && 'xvfb-run -a ' || '' }}meson test -C .build/meson --print-errorlogs
+      - name: Package and test (Linux AppImage)
+        if: runner.os == 'Linux'
+        run: |
+          packaging/linux/build-appimage.sh .build/meson
+          APPIMAGE_EXTRACT_AND_RUN=1 xvfb-run -a .build/dist/MiniPlaner-x86_64.AppImage --smoke-test
+      - name: Package and test (macOS app)
+        if: runner.os == 'macOS'
+        run: |
+          brew install dylibbundler
+          packaging/macos/package.sh .build/meson
+          .build/dist/MiniPlaner.app/Contents/MacOS/miniplaner --smoke-test
+      - uses: actions/upload-artifact@v7
+        with:
+          name: miniplaner-${{ matrix.name }}
+          path: |
+            .build/dist/*.AppImage
+            .build/dist/*.dmg
 
-  macos:
-    name: macOS
-    runs-on: macos-latest
-    steps:
-    - uses: actions/checkout@v2
-    - name: Install Dependencies
-      run: brew install meson wxmac
-    - name: Setup build directory
-      run: meson builddir
-    - name: Compile
-      run: ninja -C builddir
-    - name: Test
-      run: ninja -C builddir test
-
-  msys2:
-    name: MSYS2
+  windows:
+    name: Windows
     runs-on: windows-latest
+    defaults:
+      run:
+        shell: msys2 {0}
     steps:
-    - uses: actions/checkout@v2
-    - uses: numworks/setup-msys2@v1
-      with:
-        update: true  # TODO: remove once MSYS2's installation tarball is more recent than 20190524
-    - name: Install Dependencies
-      run: msys2do pacman --noconfirm -S mingw-w64-x86_64-meson mingw-w64-x86_64-gcc mingw-w64-x86_64-wxWidgets
-    - name: Setup build directory
-      run: msys2do meson builddir
-    - name: Compile
-      run: msys2do ninja -C builddir
-    - name: Test
-      run: msys2do ninja -C builddir test
+      - uses: actions/checkout@v7
+      - uses: msys2/setup-msys2@v2
+        with:
+          msystem: UCRT64
+          update: true
+          install: >-
+            mingw-w64-ucrt-x86_64-gcc
+            mingw-w64-ucrt-x86_64-meson
+            mingw-w64-ucrt-x86_64-wxwidgets3.2-msw
+      - run: meson setup .build/meson -Dstatic=true
+      - run: meson compile -C .build/meson
+      - run: meson test -C .build/meson --print-errorlogs
+      - run: packaging/windows/package.sh .build/meson
+      - name: Test packaged app (without the MSYS2 environment)
+        shell: pwsh
+        run: |
+          $p = Start-Process .build\stage\miniplaner.exe -ArgumentList '--smoke-test' -Wait -PassThru
+          exit $p.ExitCode
+      - uses: actions/upload-artifact@v7
+        with:
+          name: miniplaner-Windows
+          path: .build/dist/*.exe

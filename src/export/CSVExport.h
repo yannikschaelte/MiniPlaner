@@ -13,7 +13,7 @@
 #include "../file/DataFileHandler.h"
 
 namespace CSVExport {
-	const wxString D = DataFileHandler::D;
+	inline const wxString& D = DataFileHandler::D;  // reference: avoids static-init-order crash
 	const wxString N = wxT("\n");
 	wxString createCSV(ExportLayout* layout, Planer* planer);
 };

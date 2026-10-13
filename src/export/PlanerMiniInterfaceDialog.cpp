@@ -5,6 +5,7 @@
  * Created on March 22, 2016, 2:54 PM
  */
 
+#include "../Paths.h"
 #include "PlanerMiniInterfaceDialog.h"
 #include <algorithm>
 #include <wx/clipbrd.h>
@@ -18,6 +19,12 @@
 #include "../view-plan/PTerminDialog.h"
 #include "../view-data/DeleteDialog.h"
 #include "../file/DataFileHandler.h"
+#include <algorithm>
+#include <random>
+
+namespace {
+std::mt19937 rng{std::random_device{}()};
+}
 
 PlanerMiniInterfaceDialog::PlanerMiniInterfaceDialog(wxWindow* parent, App* _app, bool* _edt,
 		wxDateTime* _datum_beginn,
@@ -47,9 +54,9 @@ void PlanerMiniInterfaceDialog::initComponents() {
 	sizer->Add(choicebook, 1, wxEXPAND, 0);
 	SetSizer(sizer);
 	pl_1 = new wxPanel(choicebook, R::ID_ANY);
-	choicebook->AddPage(pl_1, wxT("Daten für MiniInterface-Formular exportieren"));
+	choicebook->AddPage(pl_1, R::MI_PAGE_EXPORT);
 	pl_2 = new wxPanel(choicebook, R::ID_ANY);
-	choicebook->AddPage(pl_2, wxT("Mit Daten aus MiniInterface-Formular Plan erstellen"));
+	choicebook->AddPage(pl_2, R::MI_PAGE_IMPORT);
 
 	//Export********************************************************************
 	wxBoxSizer* sizer_1 = new wxBoxSizer(wxVERTICAL);
@@ -110,7 +117,7 @@ void PlanerMiniInterfaceDialog::initComponents() {
 
 	//Navigation
 	wxBoxSizer* btsizer = new wxBoxSizer(wxHORIZONTAL);
-	wxPanel* pl_nn = new wxPanel(this);
+	wxPanel* pl_nn = new wxPanel(pl_1);
 	pl_nn->SetSize(30, -1);
 	btsizer->Add(pl_nn, 1, wxEXPAND);
 	bt_back = new wxButton(pl_1, R::ID_BT_BACK, R::ZURUECK);
@@ -128,12 +135,12 @@ void PlanerMiniInterfaceDialog::initComponents() {
 	cb_imp_anw = new wxCheckBox(pl_2, R::ID_ANY, wxT("Bei positiver Rückmeldung (\"Felder mit Häkchen\") Messdiener zufällig eintragen (berücksichtigt keine M.-Gruppen)"));
 	cb_imp_anw->SetValue(true);
 	sizer_2->Add(cb_imp_anw, 0, wxEXPAND | wxALL, 5);
-	bt_imp_pull = new wxButton(pl_2, R::ID_BT_ADD2, wxT("Lade Daten aus Zwischenablage"));
+	bt_imp_pull = new wxButton(pl_2, R::ID_BT_ADD2, R::MI_PULL);
 	sizer_2->Add(bt_imp_pull, 0, wxALL, 5);
-	sizer_2->Add(new wxPanel(this), 1, wxEXPAND, 0);
+	sizer_2->Add(new wxPanel(pl_2), 1, wxEXPAND, 0);
 	//Navigation
 	wxBoxSizer* btsizer_2 = new wxBoxSizer(wxHORIZONTAL);
-	wxPanel* pl_nn_2 = new wxPanel(this);
+	wxPanel* pl_nn_2 = new wxPanel(pl_2);
 	pl_nn_2->SetSize(30, -1);
 	btsizer_2->Add(pl_nn_2, 1, wxEXPAND);
 	bt_imp_cancel = new wxButton(pl_2, R::ID_BT_CANCEL, R::CANCEL);
@@ -401,7 +408,7 @@ void PlanerMiniInterfaceDialog::onBtCont(wxCommandEvent&) {
 
 		//generate data for file
 		wxString text = createData();
-		wxFileDialog saveFileDialog(this, wxT("Datei speichern"), wxT("output"), wxT("MiniInterface.dat"), wxT("MiniInterface.dat"), wxFD_SAVE | wxFD_OVERWRITE_PROMPT);
+		wxFileDialog saveFileDialog(this, R::DATEI_SPEICHERN, Paths::outputDir(), wxT("MiniInterface.dat"), wxT("MiniInterface.dat"), wxFD_SAVE | wxFD_OVERWRITE_PROMPT);
 		if (saveFileDialog.ShowModal() == wxID_CANCEL) {
 			return;
 		}
@@ -476,7 +483,7 @@ void PlanerMiniInterfaceDialog::onBtImpPull(wxCommandEvent&) {
 	if (readData()) {
 		*edt = true;
 		deleteContents = false;
-		wxMessageBox(wxT("Daten erfolgreich verarbeitet!"), wxT("Meldung"), wxICON_EXCLAMATION);
+		wxMessageBox(R::MI_PULL_OK, R::MELDUNG, wxICON_EXCLAMATION);
 		Close(true);
 	} else {
 		for (std::vector<Dienst*>::iterator iter = list_dienst->begin(); iter != list_dienst->end(); iter++) {
@@ -499,7 +506,7 @@ void PlanerMiniInterfaceDialog::onBtImpPull(wxCommandEvent&) {
 		list_mini->clear();
 		list_mgruppe->clear();
 		list_fehlzeit->clear();
-		wxMessageBox(wxT("Daten aus Zwischenablage konnten nicht korrekt verarbeitet werden!"), wxT("Fehler"), wxICON_ERROR);
+		wxMessageBox(R::MI_PULL_ERR, R::FEHLER_T, wxICON_ERROR);
 	}
 }
 
@@ -686,11 +693,11 @@ bool PlanerMiniInterfaceDialog::readData() {
 		}
 		//anwesenheiten
 		if (cb_imp_anw->IsChecked()) {
-			std::random_shuffle(list_mini_anw.begin(), list_mini_anw.end());
+			std::shuffle(list_mini_anw.begin(), list_mini_anw.end(), rng);
 			for (int j = 0; j < num_termine; j++) {
 				PTermin* termin = list_termin->at(j);
 				int num_dienste = termin->list_dienst_num.size();
-				std::random_shuffle(list_mini_anw.begin(), list_mini_anw.end());
+				std::shuffle(list_mini_anw.begin(), list_mini_anw.end(), rng);
 				for (int i = 0; i < num_minis; i++) {
 					if (list_mini_anw.at(i).second.at(j) == ANW_JA) {
 						PMessdiener* mini = list_mini_anw.at(i).first;

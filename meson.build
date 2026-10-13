@@ -1,15 +1,16 @@
 project('MiniPlaner', 'cpp',
     license : 'LGPL3',
-    version : '2.0.4',
-    default_options : ['cpp_std=c++11']
+    version : '2.0.5',
+    default_options : ['cpp_std=c++17', 'warning_level=1']
 )
 
-wx_dep = dependency('wxwidgets', version : '>=3.0.4')
+wx_dep = dependency('wxwidgets', version : '>=3.2', static : get_option('static'))
 
 conf_data = configuration_data()
 conf_data.set('name', meson.project_name())
 conf_data.set('license', ', '.join(meson.project_license()))
 conf_data.set('version', meson.project_version())
+conf_data.set('homepage', 'https://yannikschaelte.github.io/MiniPlaner/')
 version_array = meson.project_version().split('.')
 version_array_4 = [
     version_array[0],
@@ -25,16 +26,30 @@ configure_file(input : 'src/config.h.in',
                output : 'config.h',
                configuration : conf_data)
 
-miniplaner_inc = include_directories('.')
+# Embed res/demo into the executable (re-run `meson setup --reconfigure` after adding demo files)
+python = import('python').find_installation()
+embed_script = files('tools/embed_demo.py')
+demo_dir = meson.project_source_root() / 'res/demo'
+demo_files = files(run_command(python, embed_script, '--list', demo_dir, check : true).stdout().strip().split('\n'))
+demo_cpp = custom_target('demo_data',
+    input : demo_files,
+    output : 'DemoData.cpp',
+    command : [python, embed_script, demo_dir, '@OUTPUT@']
+)
+
+miniplaner_inc = include_directories('.', 'src')
 miniplaner_src = files(
     'src/App.cpp',
     'src/MiniPlaner.cpp',
+    'src/Paths.cpp',
     'src/R.cpp',
+    'src/UserData.cpp',
     'src/Util.cpp',
     'src/controller-plan/PlanerController.cpp',
     'src/controller-plan/TerminCreator.cpp',
     'src/export/CSVExport.cpp',
-    'src/export/ExcelXMLExport.cpp',
+    'src/export/ExportOutput.cpp',
+    'src/export/XlsxExport.cpp',
     'src/export/ExportLayout.cpp',
     'src/export/ExportLayoutDialog.cpp',
     'src/export/HTMLExport.cpp',
@@ -84,6 +99,8 @@ miniplaner_src = files(
     'src/view-plan/PlanerSettingsDialog.cpp',
     'src/view-plan/TerminePlanerDialog.cpp',
     'src/view/AboutPanel.cpp',
+    'src/view/SettingsPanel.cpp',
+    'src/view/WelcomeWizard.cpp',
     'src/view/MainFrame.cpp'
 )
 
@@ -110,8 +127,20 @@ if host_machine.system() == 'windows'
     )
 endif
 
-executable('miniplaner', miniplaner_src,
+miniplaner = executable('miniplaner', miniplaner_src, demo_cpp,
   include_directories : miniplaner_inc,
   dependencies : [wx_dep],
+  link_args : get_option('static') ? ['-static'] : [],
   install : true
 )
+
+# Starts the GUI with demo data in a temporary directory and quits (needs a display)
+test('smoke', miniplaner, args : ['--smoke-test'], timeout : 60)
+
+# Desktop integration and manual (used by the Linux packaging)
+if host_machine.system() == 'linux'
+    install_data('packaging/linux/miniplaner.desktop',
+        install_dir : get_option('datadir') / 'applications')
+    install_data('src/img/minis256.png', rename : 'miniplaner.png',
+        install_dir : get_option('datadir') / 'icons/hicolor/256x256/apps')
+endif

@@ -18,6 +18,7 @@
 #include "../view-data/FehlzeitenPanel.h"
 #include "../view-plan/PlaenePanel.h"
 #include "AboutPanel.h"
+#include "SettingsPanel.h"
 class App;
 
 class MainFrame : public wxFrame {
@@ -50,6 +51,7 @@ private:
 	TGruppenPanel* t_gruppen_panel;
 	FehlzeitenPanel* fehlzeiten_panel;
 	PlaenePanel* plaene_panel;
+	SettingsPanel* settings_panel;
 	AboutPanel* about_panel;
 	DECLARE_EVENT_TABLE();
 	void onLBSel(wxMouseEvent& evt);
