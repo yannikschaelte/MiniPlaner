@@ -1,0 +1,2 @@
+option('static', type : 'boolean', value : false,
+    description : 'Link wxWidgets and the runtime statically (single-file executable, used for Windows)')

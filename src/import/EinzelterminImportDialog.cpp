@@ -134,7 +134,7 @@ void EinzelterminImportDialog::onBtFile(wxCommandEvent&) {
 	//delete old
 	tmp_list.clear();
 
-	wxFileDialog openFileDialog(this, R::CSV_DATEI_WAEHLEN, wxT(""), wxT(""), wxT("CSV-Dateien (*.csv)|*.csv|Alle (*.*)|*.*"), wxFD_OPEN | wxFD_FILE_MUST_EXIST);
+	wxFileDialog openFileDialog(this, R::CSV_DATEI_WAEHLEN, wxT(""), wxT(""), R::CSV_FILTER, wxFD_OPEN | wxFD_FILE_MUST_EXIST);
 	if (openFileDialog.ShowModal() == wxID_CANCEL) return;
 	wxTextFile file(openFileDialog.GetPath());
 	if (!file.Exists()) {

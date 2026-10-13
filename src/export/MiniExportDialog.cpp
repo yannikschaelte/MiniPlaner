@@ -5,11 +5,10 @@
  * Created on October 2, 2015, 7:46 PM
  */
 
+#include "../Paths.h"
 #include "MiniExportDialog.h"
-#include <wx/clipbrd.h>
-#include <wx/filedlg.h>
 #include <wx/statline.h>
-#include <wx/wfstream.h>
+#include "ExportOutput.h"
 
 MiniExportDialog::MiniExportDialog(wxWindow* parent, std::vector<Messdiener*>* _list_mini)
 : wxDialog(parent, R::ID_ANY, R::MINI_EXPORT_DIALOG, wxDefaultPosition, wxDefaultSize, wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER) {
@@ -38,12 +37,12 @@ MiniExportDialog::MiniExportDialog(wxWindow* parent, std::vector<Messdiener*>* _
 	rb_clipboard = new wxRadioButton(this, R::ID_ANY, R::CLIPBOARD_AUSGABE);
 	sizer_r->Add(rb_clipboard, 0, 0, 0);
 	sizer_r->AddSpacer(10);
+	bt_xlsx = new wxButton(this, R::ID_BT_DEL2, wxT("Excel (.xlsx)"));
+	sizer_r->Add(bt_xlsx, 0, wxEXPAND, 0);
+	bt_csv = new wxButton(this, R::ID_BT_DEL, wxT("CSV"));
+	sizer_r->Add(bt_csv, 0, wxEXPAND, 0);
 	bt_html = new wxButton(this, R::ID_BT_ADD2, wxT("HTML"));
 	sizer_r->Add(bt_html, 0, wxEXPAND, 0);
-	bt_csv = new wxButton(this, R::ID_BT_DEL, wxT("Tab-CSV"));
-	sizer_r->Add(bt_csv, 0, wxEXPAND, 0);
-	bt_excel_xml = new wxButton(this, R::ID_BT_DEL2, wxT("Excel-XML"));
-	sizer_r->Add(bt_excel_xml, 0, wxEXPAND, 0);
 	sizer->Add(sizer_r, 0, wxEXPAND | wxALL, 5);
 
 	SetSizerAndFit(sizer);
@@ -122,128 +121,23 @@ wxString MiniExportDialog::createCSV() {
 	return page;
 }
 
-wxString MiniExportDialog::createExcelXML() {
-	wxString page = wxT("<?xml version=\"1.0\" encoding=\"utf-8\"?>"
-			"<?mso-application progid=\"Excel.Sheet\"?>"
-			"<Workbook"
-			" xmlns=\"urn:schemas-microsoft-com:office:spreadsheet\""
-			" xmlns:o=\"urn:schemas-microsoft-com:office:office\""
-			" xmlns:x=\"urn:schemas-microsoft-com:office:excel\""
-			" xmlns:ss=\"urn:schemas-microsoft-com:office:spreadsheet\""
-			" xmlns:html=\"http://www.w3.org/TR/REC-html40\">");
-	page += wxT("<DocumentProperties xmlns=\"urn:schemas-microsoft-com:office:office\">"
-			"<Author>Yannik Schälte</Author>"
-			"<Version>2.0</Version>"
-			"</DocumentProperties>");
-	page += wxT("<Styles>"
-			"<Style ss:ID=\"Default\" ss:Name=\"Normal\">"
-			"<Alignment ss:Vertical=\"Bottom\" />"
-			"</Style>"
-			"<Style ss:ID=\"sphead\">"
-			"<Font x:Family=\"Swiss\" ss:Bold=\"1\" />"
-			"</Style>"
-			"</Styles>");
-	page += wxT("<Worksheet ss:Name=\"") + R::MESSDIENERLISTE + wxT("\">"
-			"<Table>");
-	//header
-	page += wxT("<Row>");
-	if(cb_num->GetValue()) page += wxT("<Cell ss:StyleID=\"sphead\"></Cell>");
-	for (int i = 0; i < R::MINI_ATTS_NUM; i++) {
-		if (cb_cols[i]->GetValue()) {
-			page += wxT("<Cell ss:StyleID=\"sphead\"><Data ss:Type=\"String\">") + R::MINI_ATTS[i] + wxT("</Data></Cell>");
-		}
-	}
-	page += wxT("</Row>");
-	//list
-	int num_minis = list_mini->size();
-	for (int i = 0; i < num_minis; i++) {
-		Messdiener* m = list_mini->at(i);
-		page += wxT("<Row>");
-		if (cb_num->GetValue()) page += wxT("<Cell><Data ss:Type=\"Number\">") + wxString::Format(wxT("%i"), i + 1) + wxT("</Data></Cell>");
-		if (cb_cols[0]->GetValue()) page += wxT("<Cell><Data ss:Type=\"String\">") + m->name + wxT("</Data></Cell>");
-		if (cb_cols[1]->GetValue()) page += wxT("<Cell><Data ss:Type=\"String\">") + m->vorname + wxT("</Data></Cell>");
-		if (cb_cols[2]->GetValue()) page += wxT("<Cell><Data ss:Type=\"String\">") + Messdiener::printDienste(m) + wxT("</Data></Cell>");
-		if (cb_cols[3]->GetValue()) page += wxT("<Cell><Data ss:Type=\"String\">&#8203;") + m->geburtstag + wxT("</Data></Cell>");
-		if (cb_cols[4]->GetValue()) page += wxT("<Cell><Data ss:Type=\"String\">") + m->strasse_nr + wxT("</Data></Cell>");
-		if (cb_cols[5]->GetValue()) page += wxT("<Cell><Data ss:Type=\"String\">") + m->plz_ort + wxT("</Data></Cell>");
-		if (cb_cols[6]->GetValue()) page += wxT("<Cell><Data ss:Type=\"String\">&#8203;") + m->tel + wxT("</Data></Cell>");
-		if (cb_cols[7]->GetValue()) page += wxT("<Cell><Data ss:Type=\"String\">&#8203;") + m->mobile + wxT("</Data></Cell>");
-		if (cb_cols[8]->GetValue()) page += wxT("<Cell><Data ss:Type=\"String\">") + m->email + wxT("</Data></Cell>");
-		if (cb_cols[9]->GetValue()) page += wxT("<Cell><Data ss:Type=\"String\">&#8203;") + m->bem + wxT("</Data></Cell>");
-		page += wxT("</Row>");
-	}
-	page += wxT("</Table></Worksheet></Workbook>");
-	return page;
-}
-
 BEGIN_EVENT_TABLE(MiniExportDialog, wxDialog)
 EVT_BUTTON(R::ID_BT_ADD2, MiniExportDialog::onBtHTML)
 EVT_BUTTON(R::ID_BT_DEL, MiniExportDialog::onBtCSV)
-EVT_BUTTON(R::ID_BT_DEL2, MiniExportDialog::onBtExcelXML)
+EVT_BUTTON(R::ID_BT_DEL2, MiniExportDialog::onBtXlsx)
 END_EVENT_TABLE()
 
 void MiniExportDialog::onBtHTML(wxCommandEvent&) {
 	wxString text = createHTML();
-	if (rb_file->GetValue()) {
-		wxFileDialog saveFileDialog(this, R::SPEICHERN_HTML, wxT("output"), R::MESSDIENERLISTE_SH + wxT(".html"), wxT("*.*"), wxFD_SAVE | wxFD_OVERWRITE_PROMPT);
-		if (saveFileDialog.ShowModal() == wxID_CANCEL) {
-			return;
-		}
-		wxFileOutputStream output_stream(saveFileDialog.GetPath());
-		if (!output_stream.IsOk()) {
-			return;
-		}
-		wxScopedCharBuffer text_utf8 = text.ToUTF8();
-		output_stream.Write(text_utf8, text_utf8.length());
-		output_stream.Close();
-	} else {
-		if (wxTheClipboard->Open()) {
-			wxTheClipboard->SetData(new wxTextDataObject(text));
-			wxTheClipboard->Close();
-		}
-	}
+	ExportOutput::save(this, rb_file->GetValue(), R::SPEICHERN_HTML, R::MESSDIENERLISTE_SH + wxT(".html"), text);
 }
 
 void MiniExportDialog::onBtCSV(wxCommandEvent&) {
 	wxString text = createCSV();
-	if (rb_file->GetValue()) {
-		wxFileDialog saveFileDialog(this, R::SPEICHERN_HTML, wxT("output"), R::MESSDIENERLISTE_SH + wxT(".csv"), wxT("*.*"), wxFD_SAVE | wxFD_OVERWRITE_PROMPT);
-		if (saveFileDialog.ShowModal() == wxID_CANCEL) {
-			return;
-		}
-		wxFileOutputStream output_stream(saveFileDialog.GetPath());
-		if (!output_stream.IsOk()) {
-			return;
-		}
-		wxScopedCharBuffer text_utf8 = text.ToUTF8();
-		output_stream.Write(text_utf8, text_utf8.length());
-		output_stream.Close();
-	} else {
-		if (wxTheClipboard->Open()) {
-			wxTheClipboard->SetData(new wxTextDataObject(text));
-			wxTheClipboard->Close();
-		}
-	}
+	ExportOutput::save(this, rb_file->GetValue(), R::SPEICHERN_CSV, R::MESSDIENERLISTE_SH + wxT(".csv"), text);
 }
 
-void MiniExportDialog::onBtExcelXML(wxCommandEvent&) {
-	wxString text = createExcelXML();
-	if (rb_file->GetValue()) {
-		wxFileDialog saveFileDialog(this, R::SPEICHERN_HTML, wxT("output"), R::MESSDIENERLISTE_SH + wxT(".xml"), wxT("*.*"), wxFD_SAVE | wxFD_OVERWRITE_PROMPT);
-		if (saveFileDialog.ShowModal() == wxID_CANCEL) {
-			return;
-		}
-		wxFileOutputStream output_stream(saveFileDialog.GetPath());
-		if (!output_stream.IsOk()) {
-			return;
-		}
-		wxScopedCharBuffer text_utf8 = text.ToUTF8();
-		output_stream.Write(text_utf8, text_utf8.length());
-		output_stream.Close();
-	} else {
-		if (wxTheClipboard->Open()) {
-			wxTheClipboard->SetData(new wxTextDataObject(text));
-			wxTheClipboard->Close();
-		}
-	}
+void MiniExportDialog::onBtXlsx(wxCommandEvent&) {
+	wxString text = createCSV();
+	ExportOutput::save(this, rb_file->GetValue(), R::SPEICHERN_XLSX, R::MESSDIENERLISTE_SH + wxT(".xlsx"), text);
 }

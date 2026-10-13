@@ -1,0 +1,10 @@
+# Build environment for Linux and macOS (used locally and in CI).
+name: miniplaner
+channels:
+  - conda-forge
+dependencies:
+  - compilers
+  - meson
+  - ninja
+  - pkg-config
+  - wxwidgets >=3.2

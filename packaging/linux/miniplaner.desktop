@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=MiniPlaner
+Comment=Create church service plans
+Exec=miniplaner
+Icon=miniplaner
+Categories=Office;Calendar;

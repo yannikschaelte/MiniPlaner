@@ -5,6 +5,7 @@
  * Created on September 11, 2015, 9:38 AM
  */
 
+#include "../Paths.h"
 #include "PlanPlanerDialog.h"
 #include <wx/clipbrd.h>
 #include <wx/filedlg.h>
@@ -20,7 +21,7 @@
 #include "../export/ExportLayoutDialog.h"
 #include "../export/HTMLExport.h"
 #include "../export/CSVExport.h"
-#include "../export/ExcelXMLExport.h"
+#include "../export/ExportOutput.h"
 #include "../img/minis.xpm"
 
 PlanPlanerDialog::PlanPlanerDialog(wxWindow* parent, Planer* planer)
@@ -91,7 +92,7 @@ void PlanPlanerDialog::initComponents() {
 	}
 	sizer_termine->Add(lv_termine, 1, wxEXPAND | wxALL, 0);
 	wxBoxSizer* sizer_termine_bts = new wxBoxSizer(wxHORIZONTAL);
-	sizer_termine_bts->Add(new wxPanel(this), 1, wxEXPAND, 0);
+	sizer_termine_bts->Add(new wxPanel(pl_termine), 1, wxEXPAND, 0);
 	bt_termine_edt = new wxButton(pl_termine, R::ID_EXPORT, R::EDT);
 	sizer_termine_bts->Add(bt_termine_edt, 0, 0, 0);
 	bt_termine_del = new wxButton(pl_termine, R::ID_IMPORT, R::DEL);
@@ -170,12 +171,12 @@ void PlanPlanerDialog::initComponents() {
 	rb_clipboard = new wxRadioButton(pl_r, R::ID_ANY, R::CLIPBOARD_AUSGABE);
 	sizer_r->Add(rb_clipboard, 0, 0, 0);
 	sizer_r->AddSpacer(10);
+	bt_xlsx = new wxButton(pl_r, R::ID_BT_DEL2, wxT("Excel (.xlsx)"));
+	sizer_r->Add(bt_xlsx, 0, wxEXPAND, 0);
+	bt_csv = new wxButton(pl_r, R::ID_BT_EDT, wxT("CSV"));
+	sizer_r->Add(bt_csv, 0, wxEXPAND, 0);
 	bt_html = new wxButton(pl_r, R::ID_BT_ADD2, wxT("HTML"));
 	sizer_r->Add(bt_html, 0, wxEXPAND, 0);
-	bt_csv = new wxButton(pl_r, R::ID_BT_EDT, wxT("Tab-CSV"));
-	sizer_r->Add(bt_csv, 0, wxEXPAND, 0);
-	bt_excel_xml = new wxButton(pl_r, R::ID_BT_DEL2, wxT("Excel-XML"));
-	sizer_r->Add(bt_excel_xml, 0, wxEXPAND, 0);
 
 	pl_r->SetSizer(sizer_r);
 
@@ -425,7 +426,7 @@ EVT_BUTTON(R::ID_BT_OK, PlanPlanerDialog::onSave)
 EVT_BUTTON(R::ID_BT_ADD, PlanPlanerDialog::onBtLayout)
 EVT_BUTTON(R::ID_BT_ADD2, PlanPlanerDialog::onBtHTML)
 EVT_BUTTON(R::ID_BT_EDT, PlanPlanerDialog::onBtCSV)
-EVT_BUTTON(R::ID_BT_DEL2, PlanPlanerDialog::onBtExcelXML)
+EVT_BUTTON(R::ID_BT_DEL2, PlanPlanerDialog::onBtXlsx)
 EVT_BUTTON(R::ID_EXPORT, PlanPlanerDialog::onBtTermineEdt)
 EVT_BUTTON(R::ID_IMPORT, PlanPlanerDialog::onBtTermineDel)
 EVT_LIST_ITEM_ACTIVATED(R::ID_CH, PlanPlanerDialog::onLITermineActivated)
@@ -695,73 +696,19 @@ void PlanPlanerDialog::onBtLayout(wxCommandEvent&) {
 void PlanPlanerDialog::onBtHTML(wxCommandEvent&) {
 	if (continueComputation) return;
 	wxString text = HTMLExport::createHTML(&layout, controller->planer, false);
-	if (rb_file->GetValue()) {
-		wxFileDialog saveFileDialog(this, R::SPEICHERN_HTML, wxT("output"),
-				R::MESSDIENERPLAN_SH + wxT("_") + controller->planer->getDir() + wxT(".html"), wxT("*.*"), wxFD_SAVE | wxFD_OVERWRITE_PROMPT);
-		if (saveFileDialog.ShowModal() == wxID_CANCEL) {
-			return;
-		}
-		wxFileOutputStream output_stream(saveFileDialog.GetPath());
-		if (!output_stream.IsOk()) {
-			return;
-		}
-		wxScopedCharBuffer text_utf8 = text.ToUTF8();
-		output_stream.Write(text_utf8, text_utf8.length());
-		output_stream.Close();
-	} else {
-		if (wxTheClipboard->Open()) {
-			wxTheClipboard->SetData(new wxTextDataObject(text));
-			wxTheClipboard->Close();
-		}
-	}
+	ExportOutput::save(this, rb_file->GetValue(), R::SPEICHERN_HTML, R::MESSDIENERPLAN_SH + wxT("_") + controller->planer->getDir() + wxT(".html"), text);
 }
 
 void PlanPlanerDialog::onBtCSV(wxCommandEvent&) {
 	if (continueComputation) return;
 	wxString text = CSVExport::createCSV(&layout, controller->planer);
-	if (rb_file->GetValue()) {
-		wxFileDialog saveFileDialog(this, R::SPEICHERN_CSV, wxT("output"),
-				R::MESSDIENERPLAN_SH + wxT("_") + controller->planer->getDir() + wxT(".csv"), wxT("*.*"), wxFD_SAVE | wxFD_OVERWRITE_PROMPT);
-		if (saveFileDialog.ShowModal() == wxID_CANCEL) {
-			return;
-		}
-		wxFileOutputStream output_stream(saveFileDialog.GetPath());
-		if (!output_stream.IsOk()) {
-			return;
-		}
-		wxScopedCharBuffer text_utf8 = text.ToUTF8();
-		output_stream.Write(text_utf8, text_utf8.length());
-		output_stream.Close();
-	} else {
-		if (wxTheClipboard->Open()) {
-			wxTheClipboard->SetData(new wxTextDataObject(text));
-			wxTheClipboard->Close();
-		}
-	}
+	ExportOutput::save(this, rb_file->GetValue(), R::SPEICHERN_CSV, R::MESSDIENERPLAN_SH + wxT("_") + controller->planer->getDir() + wxT(".csv"), text);
 }
 
-void PlanPlanerDialog::onBtExcelXML(wxCommandEvent&) {
+void PlanPlanerDialog::onBtXlsx(wxCommandEvent&) {
 	if (continueComputation) return;
-	wxString text = ExcelXMLExport::createExcelXML(&layout, controller->planer);
-	if (rb_file->GetValue()) {
-		wxFileDialog saveFileDialog(this, R::SPEICHERN_EXCEL_XML, wxT("output"),
-				R::MESSDIENERPLAN_SH + wxT("_") + controller->planer->getDir() + wxT(".xml"), wxT("*.*"), wxFD_SAVE | wxFD_OVERWRITE_PROMPT);
-		if (saveFileDialog.ShowModal() == wxID_CANCEL) {
-			return;
-		}
-		wxFileOutputStream output_stream(saveFileDialog.GetPath());
-		if (!output_stream.IsOk()) {
-			return;
-		}
-		wxScopedCharBuffer text_utf8 = text.ToUTF8();
-		output_stream.Write(text_utf8, text_utf8.length());
-		output_stream.Close();
-	} else {
-		if (wxTheClipboard->Open()) {
-			wxTheClipboard->SetData(new wxTextDataObject(text));
-			wxTheClipboard->Close();
-		}
-	}
+	wxString text = CSVExport::createCSV(&layout, controller->planer);
+	ExportOutput::save(this, rb_file->GetValue(), R::SPEICHERN_XLSX, R::MESSDIENERPLAN_SH + wxT("_") + controller->planer->getDir() + wxT(".xlsx"), text);
 }
 
 void PlanPlanerDialog::onBtTermineEdt(wxCommandEvent&) {

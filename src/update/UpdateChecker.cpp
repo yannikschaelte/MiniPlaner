@@ -29,16 +29,16 @@ void UpdateChecker::checkUpdate(wxWindow* parent) {
 }
 
 UpdateChecker::UpdateDialog::UpdateDialog(wxWindow* parent)
-: wxDialog(parent, R::ID_ANY, wxT("Update-Information"), wxDefaultPosition, wxDefaultSize, wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER) {
+: wxDialog(parent, R::ID_ANY, R::UPDATE_TITLE, wxDefaultPosition, wxDefaultSize, wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER) {
 	wxBoxSizer* sizer = new wxBoxSizer(wxVERTICAL);
-	wxStaticText* st_msg = new wxStaticText(this, R::ID_ANY, wxT("Es ist eine neuere Version des Programms verfügbar."));
+	wxStaticText* st_msg = new wxStaticText(this, R::ID_ANY, R::UPDATE_MSG);
 	sizer->Add(st_msg, 1, wxEXPAND | wxALL, 10);
 
 	wxBoxSizer* btsizer = new wxBoxSizer(wxHORIZONTAL);
 	wxPanel* pl_nn = new wxPanel(this);
 	pl_nn->SetSize(30, -1);
 	btsizer->Add(pl_nn, 1, wxEXPAND);
-	bt_download = new wxButton(this, R::ID_BT_COMPUTE, wxT("Zum Download"));
+	bt_download = new wxButton(this, R::ID_BT_COMPUTE, R::UPDATE_DOWNLOAD);
 	btsizer->Add(bt_download);
 	bt_ok = new wxButton(this, R::ID_BT_OK, R::OK);
 	btsizer->Add(bt_ok);

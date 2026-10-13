@@ -54,7 +54,7 @@ void PTerminDialog::initComponents() {
 	dc_datum = new wxDatePickerCtrl(this, R::ID_CH, wxDefaultDateTime, wxDefaultPosition, wxDefaultSize, wxDP_DEFAULT | wxDP_SHOWCENTURY);
 	sizer_datum->Add(dc_datum, 1, wxEXPAND | wxALL, 2);
 	st_datum_wday = new wxStaticText(this, R::ID_ANY, wxT("(") + R::WOCHENTAGE[dc_datum->GetValue().GetWeekDay()] + wxT(")"), wxDefaultPosition, wxDefaultSize, wxALIGN_RIGHT | wxST_NO_AUTORESIZE);
-	sizer_datum->Add(st_datum_wday, 1, wxALL | wxALIGN_CENTER_VERTICAL | wxALIGN_RIGHT, 2);
+	sizer_datum->Add(st_datum_wday, 1, wxALL | wxALIGN_CENTER_VERTICAL, 2);
 	gridsizer->Add(sizer_datum, 1, wxEXPAND | wxALL, 2);
 
 	st_zeit = new wxStaticText(this, R::ID_ANY, R::ZEIT);

@@ -28,15 +28,14 @@ private:
 	
 	wxButton* bt_html;
 	wxButton* bt_csv;
-	wxButton* bt_excel_xml;
+	wxButton* bt_xlsx;
 
 	wxString createHTML();
 	wxString createCSV();
-	wxString createExcelXML();
 	DECLARE_EVENT_TABLE();
 	void onBtHTML(wxCommandEvent&);
 	void onBtCSV(wxCommandEvent&);
-	void onBtExcelXML(wxCommandEvent&);
+	void onBtXlsx(wxCommandEvent&);
 };
 
 #endif	/* MINIEXPORTDIALOG_H */

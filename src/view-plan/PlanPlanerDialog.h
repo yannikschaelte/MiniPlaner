@@ -94,7 +94,7 @@ private:
 	wxRadioButton* rb_clipboard;
 	wxButton* bt_html;
 	wxButton* bt_csv;
-	wxButton* bt_excel_xml;
+	wxButton* bt_xlsx;
 
 	void initComponents();
 	void initPreview();
@@ -123,7 +123,7 @@ private:
 	void onBtLayout(wxCommandEvent&);
 	void onBtHTML(wxCommandEvent&);
 	void onBtCSV(wxCommandEvent&);
-	void onBtExcelXML(wxCommandEvent&);
+	void onBtXlsx(wxCommandEvent&);
 };
 
 #endif	/* PLANPLANERDIALOG_H */
