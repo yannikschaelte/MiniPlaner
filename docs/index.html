@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MiniPlaner – Messdienerpläne einfach erstellen</title>
+<meta name="description" content="MiniPlaner ist ein kostenloses Programm zur Erstellung von Messdienerplänen in Kirchengemeinden. Für Windows, Linux und macOS.">
+<link rel="icon" href="img/minis64.png">
+<style>
+:root {
+  --bg: #fbf8f3;
+  --surface: #ffffff;
+  --text: #2a2422;
+  --muted: #6e6560;
+  --accent: #7a1f2b;
+  --accent-text: #ffffff;
+  --gold: #b8913f;
+  --line: #e8e0d5;
+  --shadow: 0 20px 50px -20px rgba(60, 30, 20, .35);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #1a1615;
+    --surface: #241f1e;
+    --text: #f1ebe4;
+    --muted: #a39a93;
+    --accent: #c9525f;
+    --accent-text: #1a1615;
+    --gold: #d4ae5f;
+    --line: #38302d;
+    --shadow: 0 20px 50px -20px rgba(0, 0, 0, .7);
+  }
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 17px/1.65 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--accent); text-underline-offset: 3px; }
+.wrap { max-width: 1040px; margin: 0 auto; padding: 0 20px; }
+h1, h2, h3 { font-family: Georgia, "Iowan Old Style", "Palatino Linotype", serif; font-weight: 600; line-height: 1.2; letter-spacing: -.01em; }
+
+nav { padding: 22px 0; }
+nav .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.brand { display: flex; align-items: center; gap: 12px; font: 600 1.15rem Georgia, serif; color: var(--text); text-decoration: none; }
+.brand img { width: 36px; height: 36px; }
+nav ul { display: flex; gap: 22px; list-style: none; margin: 0; padding: 0; font-size: .95rem; }
+nav ul a { color: var(--muted); text-decoration: none; }
+nav ul a:hover { color: var(--accent); }
+
+.hero { text-align: center; padding: 64px 0 40px; }
+.cross { color: var(--gold); font-size: 1.6rem; letter-spacing: .5em; margin-bottom: 8px; }
+.hero h1 { font-size: clamp(2.2rem, 6vw, 3.6rem); margin: 0 auto 18px; max-width: 16em; }
+.hero p.lead { font-size: 1.2rem; color: var(--muted); max-width: 36em; margin: 0 auto 32px; }
+.btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+.btn {
+  display: inline-block; padding: 12px 26px; border-radius: 999px;
+  background: var(--accent); color: var(--accent-text); font-weight: 600;
+  text-decoration: none; border: 1px solid var(--accent);
+  transition: transform .15s;
+}
+.btn:hover { transform: translateY(-2px); }
+.btn.ghost { background: transparent; color: var(--accent); }
+.meta { margin-top: 16px; font-size: .9rem; color: var(--muted); }
+
+.shot { margin: 48px auto 0; max-width: 900px; }
+.shot img { display: block; width: 100%; height: auto; border-radius: 12px; border: 1px solid var(--line); box-shadow: var(--shadow); }
+
+section { padding: 64px 0; }
+section > .wrap > h2 { text-align: center; font-size: 2rem; margin: 0 0 40px; }
+.rule { width: 48px; height: 2px; background: var(--gold); margin: 0 auto 48px; border: 0; }
+
+.features { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 26px; }
+.card h3 { margin: 0 0 8px; font-size: 1.15rem; }
+.card p { margin: 0; color: var(--muted); font-size: .98rem; }
+
+.split { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+.split img { width: 100%; height: auto; border-radius: 12px; border: 1px solid var(--line); box-shadow: var(--shadow); }
+.split h2 { text-align: left; margin-top: 0; }
+@media (max-width: 760px) { .split { grid-template-columns: 1fr; } nav ul { display: none; } }
+
+.downloads { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+.dl { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 26px; text-align: center; }
+.dl h3 { margin: 0 0 14px; }
+.dl a.btn { width: 100%; }
+.dl small { display: block; margin-top: 10px; color: var(--muted); }
+.note { text-align: center; color: var(--muted); margin-top: 24px; }
+
+.alt { background: var(--surface); border-block: 1px solid var(--line); }
+.links { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px 32px; }
+details { max-width: 640px; margin: 0 auto; }
+summary { cursor: pointer; color: var(--accent); text-align: center; }
+details ul { color: var(--muted); font-size: .95rem; }
+
+footer { padding: 40px 0 56px; text-align: center; color: var(--muted); font-size: .9rem; }
+footer a { color: var(--muted); }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="brand" href="#"><img src="img/minis64.png" alt="">MiniPlaner</a>
+    <ul>
+      <li><a href="#funktionen">Funktionen</a></li>
+      <li><a href="#download">Download</a></li>
+      <li><a href="#hilfe">Hilfe</a></li>
+      <li><a href="https://github.com/yannikschaelte/miniplaner">GitHub</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="cross" aria-hidden="true">✠</div>
+    <h1>Messdienerpläne in Minuten statt Stunden</h1>
+    <p class="lead">Der MiniPlaner erstellt faire, ausgewogene Dienstpläne für Kirchengemeinden und Pfarrverbünde – kostenlos für Windows, Linux und macOS.</p>
+    <div class="btns">
+      <a class="btn" href="#download">Herunterladen</a>
+      <a class="btn ghost" href="Handbuch.pdf">Handbuch lesen</a>
+    </div>
+    <p class="meta">Version 2.0.5 · Windows · Linux · macOS</p>
+    <div class="shot"><img src="img/planer.PNG" alt="Der Planer im MiniPlaner"></div>
+  </div>
+</header>
+
+<section id="funktionen">
+  <div class="wrap">
+    <h2>Übersichtlich, aber flexibel</h2>
+    <hr class="rule">
+    <div class="features">
+      <div class="card">
+        <h3>Automatisch planen</h3>
+        <p>Ein Algorithmus berücksichtigt mehrere Kriterien gleichzeitig – oder Sie planen interaktiv selbst und lassen sich helfen.</p>
+      </div>
+      <div class="card">
+        <h3>Individuelle Regeln</h3>
+        <p>Mindestens ein älterer Messdiener oder jemand mit Weihrauch-Erfahrung, Geschwister zusammen, nicht Vorabendmesse <em>und</em> Hochamt.</p>
+      </div>
+      <div class="card">
+        <h3>Abwesenheiten</h3>
+        <p>Messdiener lassen sich für Zeiträume oder einzelne Gottesdienste als fehlend eintragen.</p>
+      </div>
+      <div class="card">
+        <h3>Gruppen &amp; Serientermine</h3>
+        <p>Messdiener und Termine lassen sich gruppieren, periodische Gottesdienste als Serie anlegen.</p>
+      </div>
+      <div class="card">
+        <h3>CSV-Import</h3>
+        <p>Liegt die Messdienerliste schon als Tabelle vor, ist die Dateneingabe in wenigen Sekunden erledigt.</p>
+      </div>
+      <div class="card">
+        <h3>Vielseitiger Export</h3>
+        <p>Als Excel-Datei, CSV, <a href="examples/Ministrantenplan_bsp.html">Webseite</a> oder <a href="examples/Ministrantenplan_bsp.pdf">PDF</a> zum Ausdrucken.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="wrap split">
+    <img src="img/hauptfenster_minis.PNG" alt="Das Hauptfenster mit der Messdienerliste">
+    <div>
+      <h2>Man kann viel eingeben, muss aber nicht.</h2>
+      <p>Beim ersten Start beginnen Sie leer oder mit Beispieldaten. Der Willkommensdialog führt Sie durch die wichtigsten Einstellungen – den Rest erledigt der MiniPlaner.</p>
+    </div>
+  </div>
+</section>
+
+<section id="download">
+  <div class="wrap">
+    <h2>Download</h2>
+    <hr class="rule">
+    <div class="downloads">
+      <div class="dl">
+        <h3>Windows</h3>
+        <a class="btn" href="https://github.com/yannikschaelte/MiniPlaner/releases/download/v2.0.5/MiniPlaner-Setup.exe">Installer</a>
+        <small><a href="https://github.com/yannikschaelte/MiniPlaner/releases/download/v2.0.5/MiniPlaner.exe">Portable .exe</a> (ohne Installation)</small>
+      </div>
+      <div class="dl">
+        <h3>Linux</h3>
+        <a class="btn" href="https://github.com/yannikschaelte/MiniPlaner/releases/download/v2.0.5/MiniPlaner-x86_64.AppImage">AppImage</a>
+        <small>Ausführbar machen und starten</small>
+      </div>
+      <div class="dl">
+        <h3>macOS</h3>
+        <a class="btn" href="https://github.com/yannikschaelte/MiniPlaner/releases/download/v2.0.5/MiniPlaner.dmg">.dmg</a>
+        <small>In „Programme“ ziehen</small>
+      </div>
+    </div>
+    <p class="note">Kostenlos und quelloffen. Rückmeldungen sind herzlich willkommen!</p>
+  </div>
+</section>
+
+<section class="alt" id="hilfe">
+  <div class="wrap">
+    <h2>Hilfe &amp; Mehr</h2>
+    <hr class="rule">
+    <div class="links">
+      <a href="Handbuch.pdf">Handbuch (PDF)</a>
+      <a href="addons/MiniInterface.php">MiniInterface (Add-On)</a>
+      <a href="https://github.com/yannikschaelte/miniplaner">Quellcode</a>
+      <a href="mailto:yannik.schaelte@gmail.com">Kontakt</a>
+    </div>
+    <p class="note">Mit dem Add-On <strong>MiniInterface</strong> auf der Gemeinde-Homepage tragen Messdiener selbst ein, wann sie dienen möchten – der MiniPlaner berücksichtigt das automatisch (<a href="examples/MiniInterface.dat">Beispieldatei</a>).</p>
+    <br>
+    <details>
+      <summary>Versionsgeschichte</summary>
+      <ul>
+        <li>13.10.2026 (2.0.5): Windows, Linux und macOS; Willkommensdialog und Einstellungen; Export als Excel (.xlsx)</li>
+        <li>01.03.2019 (2.0.4): Projekt zu GitHub umgezogen</li>
+        <li>12.10.2016 (2.0.3): Fehlerbehebungen, „Termin::extras“, „Mini::bem“, Ausfüllhilfe</li>
+        <li>30.04.2016 (2.0.2): MiniInterface integriert</li>
+        <li>18.02.2016 (2.001): Fehlerbehebungen, „Mini::extras“</li>
+        <li>11.10.2015 (2.0): Erstveröffentlichung</li>
+      </ul>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    © 2015–2026 Yannik Schälte · <a href="https://github.com/yannikschaelte/miniplaner">GitHub</a>
+  </div>
+</footer>
+
+</body>
+</html>
