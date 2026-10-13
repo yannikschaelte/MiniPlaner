@@ -12,7 +12,7 @@
 #include "../R.h"
 
 void UpdateChecker::checkUpdate(wxWindow* parent) {
-	wxURL url(wxT("https://raw.githubusercontent.com/yannikschaelte/MiniPlaner/master/version.dat"));
+	wxURL url(wxT("https://raw.githubusercontent.com/yannikschaelte/MiniPlaner/main/version.dat"));
 	if (url.GetError() == wxURL_NOERR) {
 		wxString htmlData;
 		wxInputStream* in = url.GetInputStream();

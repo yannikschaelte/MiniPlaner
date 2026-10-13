@@ -62,7 +62,7 @@ Run after compiling; results land in `.build/dist`, and CI uploads them as artif
 | macOS    | `packaging/macos/package.sh BUILDDIR` (needs `dylibbundler`) | `MiniPlaner.dmg` |
 | Windows  | `packaging/windows/package.sh BUILDDIR` (MSYS2, Inno Setup) | `MiniPlaner-Setup.exe`, `MiniPlaner.exe` (standalone) |
 
-**Releasing:** set the version in `meson.build` and `version.dat`, merge to `master`, then push a
+**Releasing:** set the version in `meson.build` and `version.dat`, merge to `main`, then push a
 tag `vX.Y.Z`. The Release workflow builds all platforms and publishes the four files on GitHub,
 where the homepage links to them.
 
