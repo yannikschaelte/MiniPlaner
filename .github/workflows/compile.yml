@@ -21,8 +21,8 @@ jobs:
       run:
         shell: bash -el {0}
     steps:
-      - uses: actions/checkout@v4
-      - uses: mamba-org/setup-micromamba@v2
+      - uses: actions/checkout@v7
+      - uses: mamba-org/setup-micromamba@v3
         with:
           environment-file: environment.yml
           cache-environment: true
@@ -44,7 +44,7 @@ jobs:
           brew install dylibbundler
           packaging/macos/package.sh .build/meson
           .build/dist/MiniPlaner.app/Contents/MacOS/miniplaner --smoke-test
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: miniplaner-${{ matrix.name }}
           path: |
@@ -58,7 +58,7 @@ jobs:
       run:
         shell: msys2 {0}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: msys2/setup-msys2@v2
         with:
           msystem: UCRT64
@@ -76,7 +76,7 @@ jobs:
         run: |
           $p = Start-Process .build\stage\miniplaner.exe -ArgumentList '--smoke-test' -Wait -PassThru
           exit $p.ExitCode
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: miniplaner-Windows
           path: .build/dist/*.exe
