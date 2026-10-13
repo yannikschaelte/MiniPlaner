@@ -12,15 +12,12 @@ just post an issues.
 
 ## Branches / releases
 
-MiniPlaner roughly follows the
-[git-flow](https://nvie.com/posts/a-successful-git-branching-model/). All new
-contributions are merged into `develop`. These changes are regularly merged
-into `master` as new releases. For release versioning we are trying to follow
+All contributions are merged into the `master` branch, and releases are tagged
+on it (`vX.Y.Z`). For release versioning we are trying to follow
 [semantic versioning](https://semver.org/).
 
-We try to keep a clean git history. Therefore, feature pull requests are
-squash-merged to `develop`. Merging of release branches to master is done via
-merge commits.
+We try to keep a clean git history. Therefore, pull requests are
+squash-merged to `master`.
 
 
 ## When starting to work on some issue
@@ -41,12 +38,12 @@ described below:
 * Check if you agree to release your contribution under the conditions provided
   in [`LICENSE`](LICENSE). By opening a pull requests you confirm us that you do agree.
   
-* Start a new branch from `develop` (on your fork, or at the main
+* Start a new branch from `master` (on your fork, or at the main
   repository if you have access)
 
 * Implement your changes
 
-* Submit a pull request to the `develop` branch
+* Submit a pull request to the `master` branch
 
 * Make sure your code is documented appropriately
 
