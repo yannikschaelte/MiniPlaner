@@ -99,6 +99,11 @@ details ul { color: var(--muted); font-size: .95rem; }
 
 footer { padding: 40px 0 56px; text-align: center; color: var(--muted); font-size: .9rem; }
 footer a { color: var(--muted); }
+
+.zoom { cursor: zoom-in; }
+dialog#lightbox { border: 0; padding: 0; background: transparent; max-width: 96vw; max-height: 96vh; }
+dialog#lightbox::backdrop { background: rgba(0, 0, 0, .8); }
+dialog#lightbox img { display: block; max-width: 96vw; max-height: 94vh; border-radius: 8px; cursor: zoom-out; }
 </style>
 </head>
 <body>
@@ -125,7 +130,7 @@ footer a { color: var(--muted); }
       <a class="btn ghost" href="Handbuch.pdf" target="_blank" rel="noopener">Handbuch</a>
     </div>
     <p class="meta">Version 2.0.5 · Windows, Linux, macOS</p>
-    <div class="shot"><img src="img/planer.PNG" alt="Planer"></div>
+    <div class="shot"><img class="zoom" src="img/planer.PNG" alt="Planer"></div>
   </div>
 </header>
 
@@ -154,7 +159,7 @@ footer a { color: var(--muted); }
 
 <section class="alt" id="beschreibung">
   <div class="wrap split">
-    <img src="img/hauptfenster_minis.PNG" alt="Hauptfenster">
+    <img class="zoom" src="img/hauptfenster_minis.PNG" alt="Hauptfenster">
     <div>
       <h2>Beschreibung</h2>
       <p>Der <strong>MiniPlaner</strong> erstellt Messdienerpläne für Kirchengemeinden und Pfarrverbünde. Übersichtlich, aber flexibel: Gruppen, individuelle Dienste und Abwesenheiten.</p>
@@ -198,5 +203,13 @@ footer a { color: var(--muted); }
   <div class="wrap">Autor: Yannik Schälte · © 2015–2026. Alle Rechte vorbehalten.</div>
 </footer>
 
+<dialog id="lightbox"><img alt=""></dialog>
+<script>
+const box = document.getElementById('lightbox'), big = box.querySelector('img');
+document.querySelectorAll('img.zoom').forEach(img => img.addEventListener('click', () => {
+  big.src = img.src; big.alt = img.alt; box.showModal();
+}));
+box.addEventListener('click', () => box.close());
+</script>
 </body>
 </html>
