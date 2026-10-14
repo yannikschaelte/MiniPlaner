@@ -7,6 +7,11 @@ on:
     branches: [ master ]
   workflow_call:
 
+# Cancel runs superseded by a newer push to the same branch or PR (but never release builds)
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref_type != 'tag' }}
+
 jobs:
   unix:
     name: ${{ matrix.name }}
