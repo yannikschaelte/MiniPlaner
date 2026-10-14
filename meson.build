@@ -131,6 +131,7 @@ miniplaner = executable('miniplaner', miniplaner_src, demo_cpp,
   include_directories : miniplaner_inc,
   dependencies : [wx_dep],
   link_args : get_option('static') ? ['-static'] : [],
+  gui_app : not get_option('console'),  # Windows: GUI subsystem, no extra console window
   install : true
 )
 

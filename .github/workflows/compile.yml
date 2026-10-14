@@ -74,7 +74,10 @@ jobs:
             mingw-w64-ucrt-x86_64-wxwidgets3.2-msw
       - run: meson setup .build/meson -Dstatic=true
       - run: meson compile -C .build/meson
-      - run: meson test -C .build/meson --print-errorlogs
+      - name: Test (separate console build, so the output is visible)
+        run: |
+          meson setup .build/console -Dstatic=true -Dconsole=true
+          meson test -C .build/console --print-errorlogs
       - run: packaging/windows/package.sh .build/meson
       - name: Test packaged app (without the MSYS2 environment)
         shell: pwsh
