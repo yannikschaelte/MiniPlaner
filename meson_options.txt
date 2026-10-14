@@ -1,2 +1,4 @@
 option('static', type : 'boolean', value : false,
     description : 'Link wxWidgets and the runtime statically (single-file executable, used for Windows)')
+option('console', type : 'boolean', value : false,
+    description : 'Windows: build a console application (shows output, e.g. for the smoke test) instead of a GUI application')
