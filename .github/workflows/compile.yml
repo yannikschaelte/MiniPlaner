@@ -69,10 +69,6 @@ jobs:
             mingw-w64-ucrt-x86_64-wxwidgets3.2-msw
       - run: meson setup .build/meson -Dstatic=true
       - run: meson compile -C .build/meson
-      - name: Test (separate console build, so the output is visible)
-        run: |
-          meson setup .build/console -Dstatic=true -Dconsole=true
-          meson test -C .build/console --print-errorlogs
       - run: packaging/windows/package.sh .build/meson
       - name: Test packaged app (without the MSYS2 environment)
         shell: pwsh
@@ -83,3 +79,23 @@ jobs:
         with:
           name: miniplaner-Windows
           path: .build/dist/*.exe
+
+  # Console build in parallel to the release build, so that the smoke test output is visible
+  windows-test:
+    name: Windows (console test)
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: msys2 {0}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: msys2/setup-msys2@v2
+        with:
+          msystem: UCRT64
+          update: true
+          install: >-
+            mingw-w64-ucrt-x86_64-gcc
+            mingw-w64-ucrt-x86_64-meson
+            mingw-w64-ucrt-x86_64-wxwidgets3.2-msw
+      - run: meson setup .build/meson -Dstatic=true -Dconsole=true
+      - run: meson test -C .build/meson --print-errorlogs
