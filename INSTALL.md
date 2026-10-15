@@ -77,3 +77,9 @@ time by `tools/embed_demo.py` (re-run `meson setup --reconfigure` after adding
 files there). The Settings tab can reload it or delete all data (a backup folder
 is kept). The manual is opened from
 <https://yannikschaelte.github.io/MiniPlaner/Handbuch.pdf>.
+
+**Security warnings:** the Windows and macOS builds are not code signed (macOS: only ad hoc), so
+SmartScreen / Gatekeeper warn about an unknown publisher. Users can click "More info" > "Run anyway"
+(Windows) or right-click > Open (macOS; macOS 15+: System Settings > Privacy & Security > "Open Anyway").
+Avoiding the warnings needs a code signing certificate (Windows) or an Apple Developer ID with
+notarization (macOS).

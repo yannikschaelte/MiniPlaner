@@ -19,4 +19,6 @@ iconutil -c icns "$ICONSET" -o "$APP/Contents/Resources/miniplaner.icns"
 
 dylibbundler -od -b -x "$APP/Contents/MacOS/miniplaner" \
     -d "$APP/Contents/Frameworks" -p @executable_path/../Frameworks ${LIBS:+-s "$LIBS"}
+# dylibbundler invalidates signatures; sign ad hoc (no Developer ID), otherwise Apple Silicon reports a "damaged" app
+codesign --force --deep -s - "$APP"
 hdiutil create -volname MiniPlaner -srcfolder "$APP" -ov -format UDZO "$DIST/MiniPlaner.dmg"
